@@ -1,0 +1,643 @@
+
+<h2 class="sr-only">Dashboard del modelo de negocio — proyecciones, flujo de caja, pricing, pipeline, propuesta, templates, onboarding, operación, contractors y LinkedIn</h2>
+<style>
+.e5s{padding-top:0.25rem}
+.tbe{font-size:12px;padding:5px 12px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);border-radius:var(--border-radius-md);cursor:pointer;font-family:var(--font-sans);white-space:nowrap}
+.tbe.atab{background:var(--color-background-secondary);color:var(--color-text-primary);border-color:var(--color-border-primary);font-weight:500}
+.tbe:hover{background:var(--color-background-secondary);color:var(--color-text-primary)}
+.mc{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:0.875rem}
+.ml{font-size:11px;color:var(--color-text-secondary);margin:0 0 3px}
+.mv{font-size:21px;font-weight:500;color:var(--color-text-primary);margin:0}
+.ms{font-size:11px;color:var(--color-text-tertiary);margin:2px 0 0}
+.slbl{font-size:11px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.07em;margin:0 0 12px}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.125rem;margin-bottom:10px}
+.card:last-child{margin-bottom:0}
+.div{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:10px 0}
+.cb{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:0.75rem 0.875rem;font-size:12px;color:var(--color-text-secondary);line-height:1.6;white-space:pre-wrap;font-family:var(--font-mono);position:relative;margin-bottom:8px}
+.cpbtn{position:absolute;top:7px;right:7px;font-size:10px;padding:2px 7px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-secondary);border-radius:var(--border-radius-md);cursor:pointer;font-family:var(--font-sans)}
+.stl{font-size:13px;font-weight:500;color:var(--color-text-primary);margin:0 0 10px}
+.sub{font-size:12px;color:var(--color-text-secondary);margin:0}
+.lbl{font-size:11px;color:var(--color-text-tertiary);margin:0 0 2px}
+.val{font-size:13px;color:var(--color-text-primary);margin:0}
+table{width:100%;font-size:12px;border-collapse:collapse}
+th{text-align:left;padding:5px 0;color:var(--color-text-secondary);font-weight:500;border-bottom:0.5px solid var(--color-border-tertiary)}
+td{padding:6px 0;color:var(--color-text-secondary);border-bottom:0.5px solid var(--color-border-tertiary)}
+tr:last-child td{border-bottom:none}
+.blk{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:8px 10px;font-size:12px;color:var(--color-text-secondary);margin-top:8px}
+.step{display:flex;gap:12px;align-items:flex-start}
+.stepn{min-width:48px;text-align:center}
+.stepc{border-left:0.5px solid var(--color-border-tertiary);padding-left:12px;flex:1}
+.bar-row{display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:6px}
+.bar-track{flex:1;height:7px;background:var(--color-background-secondary);border-radius:3px}
+.bar-fill{height:100%;background:var(--color-text-secondary);border-radius:3px}
+.frow{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:4px}
+.ptag{font-size:11px;padding:3px 8px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);color:var(--color-text-secondary)}
+.prob-bar{width:80px;height:4px;background:var(--color-background-secondary);border-radius:2px;display:inline-block;vertical-align:middle;margin-right:6px}
+.prob-fill{height:100%;background:var(--color-text-secondary);border-radius:2px}
+</style>
+
+<div style="font-family:var(--font-sans);max-width:680px">
+
+<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:1.25rem;padding-bottom:10px;border-bottom:0.5px solid var(--color-border-tertiary)">
+  <button class="tbe" data-tab="proyecciones">Proyecciones</button>
+  <button class="tbe" data-tab="flujo">Flujo de caja</button>
+  <button class="tbe" data-tab="pricing">Pricing</button>
+  <button class="tbe" data-tab="pipeline">Pipeline</button>
+  <button class="tbe" data-tab="propuesta">Propuesta</button>
+  <button class="tbe" data-tab="templates">Templates</button>
+  <button class="tbe" data-tab="onboarding">Onboarding</button>
+  <button class="tbe" data-tab="operacion">Operación</button>
+  <button class="tbe" data-tab="contractors">Contractors</button>
+  <button class="tbe" data-tab="linkedin">LinkedIn</button>
+</div>
+
+<!-- 1. PROYECCIONES -->
+<div class="e5s" id="s-proyecciones">
+  <p class="slbl">Proyecciones financieras — ingeniería inversa</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:10px">
+    <div class="mc"><p class="ml">Revenue Año 1</p><p class="mv">$155k</p><p class="ms">4 core + 2 diag + 1 ret.</p></div>
+    <div class="mc"><p class="ml">Revenue Año 2</p><p class="mv">$245k</p><p class="ms">+58% YoY</p></div>
+    <div class="mc"><p class="ml">Revenue Año 3</p><p class="mv">$350k</p><p class="ms">+43% YoY</p></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px">
+    <div class="mc"><p class="ml">Take-home c/u Año 1</p><p class="mv">$50k</p><p class="ms">Margen bruto ~87%</p></div>
+    <div class="mc"><p class="ml">Take-home c/u Año 2</p><p class="mv">$75k</p><p class="ms">Con contractors</p></div>
+    <div class="mc"><p class="ml">Take-home c/u Año 3</p><p class="mv">$100k</p><p class="ms">Con 1 hire estratégico</p></div>
+  </div>
+  <div class="card">
+    <p class="stl">Desglose año a año</p>
+    <table>
+      <thead><tr><th>Rubro</th><th style="text-align:right">Año 1</th><th style="text-align:right">Año 2</th><th style="text-align:right">Año 3</th></tr></thead>
+      <tbody>
+        <tr><td style="color:var(--color-text-primary)">Revenue</td><td style="text-align:right;color:var(--color-text-primary);font-weight:500">$155k</td><td style="text-align:right;color:var(--color-text-primary);font-weight:500">$245k</td><td style="text-align:right;color:var(--color-text-primary);font-weight:500">$350k</td></tr>
+        <tr><td>OPEX</td><td style="text-align:right">$12.5k</td><td style="text-align:right">$28k</td><td style="text-align:right">$48k</td></tr>
+        <tr><td>Impuestos / CCSS (~30%)</td><td style="text-align:right">$43k</td><td style="text-align:right">$67k</td><td style="text-align:right">$102k</td></tr>
+        <tr><td style="color:var(--color-text-primary);font-weight:500;border-bottom:none">Take-home combinado</td><td style="text-align:right;font-weight:500;color:var(--color-text-primary);border-bottom:none">$100k</td><td style="text-align:right;font-weight:500;color:var(--color-text-primary);border-bottom:none">$150k</td><td style="text-align:right;font-weight:500;color:var(--color-text-primary);border-bottom:none">$200k</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <p class="stl">Mix de revenue proyectado</p>
+    <table>
+      <thead><tr><th>Tipo</th><th style="text-align:right">Año 1</th><th style="text-align:right">Año 2</th><th style="text-align:right">Año 3</th></tr></thead>
+      <tbody>
+        <tr><td>Diagnósticos</td><td style="text-align:right">$20k</td><td style="text-align:right">$30k</td><td style="text-align:right">$40k</td></tr>
+        <tr><td>Core engagements</td><td style="text-align:right">$120k</td><td style="text-align:right">$180k</td><td style="text-align:right">$250k</td></tr>
+        <tr><td style="border-bottom:none">Retainers</td><td style="text-align:right;border-bottom:none">$15k</td><td style="text-align:right;border-bottom:none">$35k</td><td style="text-align:right;border-bottom:none">$60k</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:11px;color:var(--color-text-tertiary);margin-top:8px">Estructura recomendada: S.A. + salarios internos optimizados (Opción C). Diferencia vs. S.A. pura: $15–20k/año. Provisionar 25% mensual desde el primer cobro.</p>
+</div>
+
+<!-- 2. FLUJO DE CAJA -->
+<div class="e5s" id="s-flujo">
+  <p class="slbl">Flujo de caja — Año 1 mes a mes</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px">
+    <div class="mc"><p class="ml">Meses negativos</p><p class="mv">Ene–Feb</p><p class="ms">Valle de ~$5k</p></div>
+    <div class="mc"><p class="ml">Reserva recomendada</p><p class="mv">$10k</p><p class="ms">Antes de lanzar</p></div>
+    <div class="mc"><p class="ml">Acumulado Dic</p><p class="mv">$114.5k</p><p class="ms">Bruto antes de take-home</p></div>
+  </div>
+  <div class="card">
+    <div style="position:relative;width:100%;height:200px">
+      <canvas id="cfChart" role="img" aria-label="Flujo de caja acumulado Año 1. Empieza negativo en enero-febrero (-5k), sube consistentemente hasta 119k en noviembre, y cierra en 114.5k en diciembre por pago de impuestos.">Acumulado: Ene -3.5k, Feb -5k, Mar 3.5k, Abr 21.5k, May 20k, Jun 43k, Jul 71k, Ago 74.5k, Sep 92.5k, Oct 115.5k, Nov 119k, Dic 114.5k</canvas>
+    </div>
+  </div>
+  <div class="card">
+    <table>
+      <thead><tr><th>Mes</th><th style="text-align:right">Cash IN</th><th style="text-align:right">Cash OUT</th><th style="text-align:right">Saldo</th><th style="text-align:right">Acumulado</th></tr></thead>
+      <tbody id="cftbody"></tbody>
+    </table>
+  </div>
+  <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px;margin-top:8px">
+    <p style="font-size:12px;color:var(--color-text-secondary);margin:0"><strong style="color:var(--color-text-primary);font-weight:500">3 momentos de riesgo:</strong> Valle Ene–Feb (reserva $10k) · Proyectos que se extienden (milestones contractuales) · Diciembre con impuestos (provisionar 25% mensual desde cobro #1)</p>
+  </div>
+</div>
+
+<!-- 3. PRICING -->
+<div class="e5s" id="s-pricing">
+  <p class="slbl">Arquitectura de pricing — 3 capas</p>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+      <div><p style="font-size:11px;color:var(--color-text-tertiary);margin:0 0 2px">Capa 1 — Entrada</p><p style="font-size:14px;font-weight:500;margin:0;color:var(--color-text-primary)">Diagnóstico Estratégico</p></div>
+      <p style="font-size:17px;font-weight:500;margin:0;color:var(--color-text-primary)">$8–12k</p>
+    </div>
+    <hr class="div">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+      <div><p class="lbl">Duración</p><p class="val">3–4 semanas</p></div>
+      <div><p class="lbl">Horas reales</p><p class="val">40–60h entre ambos</p></div>
+      <div><p class="lbl">Pago</p><p class="val">100% al inicio</p></div>
+      <div><p class="lbl">Conversión a core</p><p class="val">60–70%</p></div>
+    </div>
+    <p style="font-size:11px;color:var(--color-text-tertiary);margin:0;padding-top:8px;border-top:0.5px solid var(--color-border-tertiary)">Entregable: documento ejecutivo + readout con C-suite. Función: puerta de entrada al pipeline.</p>
+  </div>
+  <div class="card" style="border-color:var(--color-border-secondary)">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+      <div>
+        <p style="font-size:11px;color:var(--color-text-tertiary);margin:0 0 2px">Capa 2 — Core <span class="ptag">70–80% del revenue</span></p>
+        <p style="font-size:14px;font-weight:500;margin:0;color:var(--color-text-primary)">Engagement Estrategia / Innovación</p>
+      </div>
+      <p style="font-size:17px;font-weight:500;margin:0;color:var(--color-text-primary)">$30–65k</p>
+    </div>
+    <hr class="div">
+    <table>
+      <tbody>
+        <tr><td>Estrategia de una unidad / área</td><td style="text-align:right;color:var(--color-text-primary);font-weight:500">$30–40k</td></tr>
+        <tr><td>Innovación / nuevo modelo de negocio</td><td style="text-align:right;color:var(--color-text-primary);font-weight:500">$40–55k</td></tr>
+        <tr><td style="border-bottom:none">Transformación organizacional / C-suite</td><td style="text-align:right;color:var(--color-text-primary);font-weight:500;border-bottom:none">$50–65k</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:11px;color:var(--color-text-tertiary);margin:8px 0 0;padding-top:8px;border-top:0.5px solid var(--color-border-tertiary)">Fixed-fee por fase — nunca por hora. Pago: 50% inicio / 25% mid / 25% cierre.</p>
+  </div>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+      <div><p style="font-size:11px;color:var(--color-text-tertiary);margin:0 0 2px">Capa 3 — Retainer</p><p style="font-size:14px;font-weight:500;margin:0;color:var(--color-text-primary)">Advisory Ejecutivo Continuo</p></div>
+      <p style="font-size:17px;font-weight:500;margin:0;color:var(--color-text-primary)">$4–7.5k/mes</p>
+    </div>
+    <hr class="div">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div><p class="lbl">Sesiones</p><p class="val">2–4/mes + async</p></div>
+      <div><p class="lbl">Compromiso mínimo</p><p class="val">3 meses</p></div>
+      <div><p class="lbl">Capacidad máxima</p><p class="val">4–5 retainers</p></div>
+      <div><p class="lbl">Pago</p><p class="val">Mensual anticipado</p></div>
+    </div>
+    <p style="font-size:11px;color:var(--color-text-tertiary);margin:8px 0 0;padding-top:8px;border-top:0.5px solid var(--color-border-tertiary)">En Año 2, los retainers cubren el OPEX mensual completo → los proyectos son puro upside.</p>
+  </div>
+  <div class="card" style="background:var(--color-background-secondary);border:none">
+    <p style="font-size:12px;color:var(--color-text-secondary);margin:0"><strong style="color:var(--color-text-primary);font-weight:500">3 reglas de pricing:</strong> Nunca por hora · Siempre fixed-fee por fase · Anclen el precio al valor del cliente ("$40k para mover una decisión de $5M es barato — díganlo explícitamente")</p>
+  </div>
+</div>
+
+<!-- 4. PIPELINE -->
+<div class="e5s" id="s-pipeline">
+  <p class="slbl">Modelo de pipeline — matemática del funnel</p>
+  <div class="card">
+    <p class="stl">Funnel Año 1 — trabajado de atrás hacia adelante</p>
+    <div class="frow"><span style="font-size:13px;color:var(--color-text-secondary);flex:1">Outreach total (touchpoints/año)</span><span style="font-weight:500">~600</span></div>
+    <div style="margin-left:12px;font-size:11px;color:var(--color-text-tertiary);padding:3px 0">15% → calificado</div>
+    <div class="frow"><span style="font-size:13px;color:var(--color-text-secondary);flex:1">Contactos calificados</span><span style="font-weight:500">90</span></div>
+    <div style="margin-left:12px;font-size:11px;color:var(--color-text-tertiary);padding:3px 0">40% → reunión</div>
+    <div class="frow"><span style="font-size:13px;color:var(--color-text-secondary);flex:1">Reuniones exploratorias</span><span style="font-weight:500">36</span></div>
+    <div style="margin-left:12px;font-size:11px;color:var(--color-text-tertiary);padding:3px 0">50% → propuesta</div>
+    <div class="frow"><span style="font-size:13px;color:var(--color-text-secondary);flex:1">Propuestas enviadas</span><span style="font-weight:500">18</span></div>
+    <div style="margin-left:12px;font-size:11px;color:var(--color-text-tertiary);padding:3px 0">40% → cierre</div>
+    <div class="frow" style="border:0.5px solid var(--color-border-secondary)"><span style="font-size:13px;color:var(--color-text-primary);font-weight:500;flex:1">Cierres meta Año 1</span><span style="font-weight:500">7</span></div>
+    <p style="font-size:11px;color:var(--color-text-tertiary);margin:8px 0 0">50 touchpoints/mes = ~12/semana. Manejable con proceso sistematizado.</p>
+  </div>
+  <div class="card">
+    <p class="stl">Actividad comercial mensual</p>
+    <table>
+      <thead><tr><th>Actividad</th><th style="text-align:right">/ semana</th><th style="text-align:right">/ mes</th></tr></thead>
+      <tbody>
+        <tr><td>Reactivación de red (warm outreach)</td><td style="text-align:right">8</td><td style="text-align:right;font-weight:500;color:var(--color-text-primary)">32</td></tr>
+        <tr><td>Cafés / reuniones exploratorias</td><td style="text-align:right">2</td><td style="text-align:right;font-weight:500;color:var(--color-text-primary)">8</td></tr>
+        <tr><td>Follow-ups propuestas activas</td><td style="text-align:right">3</td><td style="text-align:right;font-weight:500;color:var(--color-text-primary)">12</td></tr>
+        <tr><td>Posts en LinkedIn</td><td style="text-align:right">1</td><td style="text-align:right;font-weight:500;color:var(--color-text-primary)">4</td></tr>
+        <tr><td style="border-bottom:none">Propuestas enviadas</td><td style="text-align:right;border-bottom:none">~0.5</td><td style="text-align:right;font-weight:500;color:var(--color-text-primary);border-bottom:none">~2</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:11px;color:var(--color-text-tertiary);margin:8px 0 0;padding-top:8px;border-top:0.5px solid var(--color-border-tertiary)">Tiempo comercial: ~6–8h/semana por socio. El resto va a delivery.</p>
+  </div>
+  <div class="card">
+    <p class="stl">Pipeline ponderado — probabilidades por etapa</p>
+    <div style="display:grid;gap:6px">
+      <div class="bar-row"><span style="color:var(--color-text-secondary);min-width:160px">Contacto inicial</span><div class="bar-track"><div class="bar-fill" style="width:10%"></div></div><span style="font-weight:500;min-width:32px;text-align:right">10%</span></div>
+      <div class="bar-row"><span style="color:var(--color-text-secondary);min-width:160px">Reunión exploratoria</span><div class="bar-track"><div class="bar-fill" style="width:25%"></div></div><span style="font-weight:500;min-width:32px;text-align:right">25%</span></div>
+      <div class="bar-row"><span style="color:var(--color-text-secondary);min-width:160px">Propuesta enviada</span><div class="bar-track"><div class="bar-fill" style="width:50%"></div></div><span style="font-weight:500;min-width:32px;text-align:right">50%</span></div>
+      <div class="bar-row"><span style="color:var(--color-text-secondary);min-width:160px">En negociación</span><div class="bar-track"><div class="bar-fill" style="width:75%"></div></div><span style="font-weight:500;min-width:32px;text-align:right">75%</span></div>
+      <div class="bar-row"><span style="color:var(--color-text-secondary);min-width:160px">Verbal yes</span><div class="bar-track"><div class="bar-fill" style="width:90%"></div></div><span style="font-weight:500;min-width:32px;text-align:right">90%</span></div>
+    </div>
+    <p style="font-size:11px;color:var(--color-text-tertiary);margin:8px 0 0;padding-top:8px;border-top:0.5px solid var(--color-border-tertiary)">Meta pipeline ponderado: >$80k en todo momento. Por debajo de $50k → acción inmediata. Revisión: viernes AM, 30 min.</p>
+  </div>
+</div>
+
+<!-- 5. PROPUESTA -->
+<div class="e5s" id="s-propuesta">
+  <p class="slbl">Proceso de propuesta — la propuesta confirma, no convence</p>
+  <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px;margin-bottom:12px">
+    <p style="font-size:12px;color:var(--color-text-secondary);margin:0">Si la propuesta es la primera vez que el cliente ve el precio, ya perdieron. El trabajo de ventas ocurre antes del documento.</p>
+  </div>
+  <div class="card">
+    <div class="step">
+      <div class="stepn"><p style="font-size:10px;color:var(--color-text-tertiary);margin:0">Conv.</p><p style="font-size:19px;font-weight:500;margin:0;color:var(--color-text-primary)">1</p></div>
+      <div class="stepc">
+        <p style="font-size:14px;font-weight:500;margin:0 0 2px;color:var(--color-text-primary)">Diagnóstico del dolor</p>
+        <p style="font-size:12px;color:var(--color-text-tertiary);margin:0 0 6px">45–60 min · Video o presencial</p>
+        <p class="sub" style="margin-bottom:6px">10 preguntas en 3 bloques: el problema, el costo de no actuar, la decisión. Nunca abrir con un pitch.</p>
+        <div class="blk">Criterio de avance: conocen el problema, el costo aproximado, quién decide y hay urgencia real.</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="step">
+      <div class="stepn"><p style="font-size:10px;color:var(--color-text-tertiary);margin:0">Conv.</p><p style="font-size:19px;font-weight:500;margin:0;color:var(--color-text-primary)">2</p></div>
+      <div class="stepc">
+        <p style="font-size:14px;font-weight:500;margin:0 0 2px;color:var(--color-text-primary)">Alineación de solución</p>
+        <p style="font-size:12px;color:var(--color-text-tertiary);margin:0 0 6px">45 min · Ambos socios si es posible · Máximo 1 página de enfoque</p>
+        <p class="sub" style="margin-bottom:6px">Recap → presentan enfoque en 3 fases → co-diseño → identificar objeciones reales. Nunca "¿qué les parece?" — preguntar "¿qué le cambiarían?"</p>
+        <div class="blk">Criterio de avance: sin objeciones estructurales sin resolver. Si las hay → resolver aquí, no en el documento.</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="step">
+      <div class="stepn"><p style="font-size:10px;color:var(--color-text-tertiary);margin:0">Conv.</p><p style="font-size:19px;font-weight:500;margin:0;color:var(--color-text-primary)">3</p></div>
+      <div class="stepc">
+        <p style="font-size:14px;font-weight:500;margin:0 0 2px;color:var(--color-text-primary)">Pre-cierre de condiciones</p>
+        <p style="font-size:12px;color:var(--color-text-tertiary);margin:0 0 6px">20–30 min · Siempre por llamada, nunca email</p>
+        <p class="sub" style="margin-bottom:6px">Validar 3 cosas antes de escribir una sola página: presupuesto (banda de precio), timing (cuándo necesitan el resultado vs. cuándo pueden arrancar), decisión (quién más necesita aprobar).</p>
+        <div class="blk">Criterio de avance: las 3 validaciones tienen respuesta clara. Si falta una → no enviar la propuesta todavía.</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <p class="stl">El documento — estructura exacta (6–8 páginas)</p>
+    <div style="display:grid;gap:4px;font-size:12px;color:var(--color-text-secondary)">
+      <div style="display:flex;gap:8px;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary)"><span style="color:var(--color-text-tertiary);min-width:16px">1.</span>El contexto — el problema en sus palabras</div>
+      <div style="display:flex;gap:8px;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary)"><span style="color:var(--color-text-tertiary);min-width:16px">2.</span>Lo que está en juego — costo de no actuar, oportunidad de capturar</div>
+      <div style="display:flex;gap:8px;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary)"><span style="color:var(--color-text-tertiary);min-width:16px">3.</span>Nuestro enfoque — fases, metodología, por qué este camino</div>
+      <div style="display:flex;gap:8px;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary)"><span style="color:var(--color-text-tertiary);min-width:16px">4.</span>Entregables concretos por fase (no genéricos)</div>
+      <div style="display:flex;gap:8px;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary)"><span style="color:var(--color-text-tertiary);min-width:16px">5.</span>Cronograma — timeline visual con hitos y checkpoints</div>
+      <div style="display:flex;gap:8px;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary)"><span style="color:var(--color-text-tertiary);min-width:16px">6.</span>Inversión — precio en contexto de valor, estructura de pagos</div>
+      <div style="display:flex;gap:8px;padding:5px 0"><span style="color:var(--color-text-tertiary);min-width:16px">7.</span>Próximos pasos — exacto y sin ambigüedad</div>
+    </div>
+  </div>
+  <div class="card">
+    <p class="stl">Las 3 objeciones más comunes</p>
+    <div style="display:grid;gap:7px">
+      <div class="blk"><p style="font-weight:500;color:var(--color-text-primary);margin:0 0 3px">"El precio está alto"</p><p style="margin:0">→ "¿Qué parte del alcance ajustaríamos?" — nunca bajar precio sin reducir alcance.</p></div>
+      <div class="blk"><p style="font-weight:500;color:var(--color-text-primary);margin:0 0 3px">"Necesitamos pensarlo"</p><p style="margin:0">→ "¿Tiene sentido que hablemos juntos con [esa persona]?" — hay un stakeholder no alineado.</p></div>
+      <div class="blk"><p style="font-weight:500;color:var(--color-text-primary);margin:0 0 3px">"No es el momento"</p><p style="margin:0">→ "¿Cuándo sería el momento? ¿Qué tendría que cambiar?" — revelar la objeción real.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- 6. TEMPLATES -->
+<div class="e5s" id="s-templates">
+  <p class="slbl">Templates copiables — conversaciones 1, 2 y 3</p>
+
+  <div class="card">
+    <p style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin:0 0 2px">Conversación 1 — Apertura</p>
+    <p style="font-size:11px;color:var(--color-text-tertiary);margin:0 0 10px">Diagnóstico del dolor · 45–60 min</p>
+    <p style="font-size:11px;color:var(--color-text-tertiary);font-weight:500;margin:0 0 5px">Apertura</p>
+    <div style="position:relative"><div class="cb" id="t1a">"[Nombre], gracias por el tiempo. Antes de hablar de nosotros o de lo que hacemos, quiero entender bien qué está pasando en [empresa]. ¿Te parece si empezamos por ahí?"</div><button class="cpbtn" onclick="cp('t1a',this)">Copiar</button></div>
+    <p style="font-size:11px;color:var(--color-text-tertiary);font-weight:500;margin:8px 0 5px">Bloque 1 — El problema</p>
+    <div style="position:relative"><div class="cb" id="t1b1">1. "¿Cuéntame qué está pasando con [tema]. ¿Qué les preocupa específicamente?"
+2. "¿Desde cuándo está pasando esto, y por qué están abordándolo ahora?"
+3. "¿Qué han intentado ya para resolverlo?"
+4. "¿Cómo están midiendo el impacto de este problema hoy?"</div><button class="cpbtn" onclick="cp('t1b1',this)">Copiar</button></div>
+    <p style="font-size:11px;color:var(--color-text-tertiary);font-weight:500;margin:8px 0 5px">Bloque 2 — Costo de no actuar</p>
+    <div style="position:relative"><div class="cb" id="t1b2">5. "Si esto no se resuelve en los próximos 6 meses, ¿qué pasa?"
+6. "¿Tienen una estimación de lo que esto les está costando — en revenue, tiempo, oportunidad?"
+7. "¿Esto es prioritario para el C-suite o es una iniciativa del área?"</div><button class="cpbtn" onclick="cp('t1b2',this)">Copiar</button></div>
+    <p style="font-size:11px;color:var(--color-text-tertiary);font-weight:500;margin:8px 0 5px">Bloque 3 — La decisión</p>
+    <div style="position:relative"><div class="cb" id="t1b3">8. "¿Quién más está involucrado en resolver esto?"
+9. "¿Han trabajado con consultores externos antes para algo similar?"
+10. "Si encontraran el enfoque correcto, ¿en qué plazo querrían arrancar?"</div><button class="cpbtn" onclick="cp('t1b3',this)">Copiar</button></div>
+    <p style="font-size:11px;color:var(--color-text-tertiary);font-weight:500;margin:8px 0 5px">Cierre</p>
+    <div style="position:relative"><div class="cb" id="t1c">"Lo que me cuentas tiene mucho sentido. Déjame procesar esto con mi socio y preparar una perspectiva inicial de cómo lo abordaríamos. ¿Tiene sentido que agendemos 45 minutos la próxima semana para compartirles esa visión?"</div><button class="cpbtn" onclick="cp('t1c',this)">Copiar</button></div>
+  </div>
+
+  <div class="card">
+    <p style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin:0 0 2px">Conversación 2 — Alineación de solución</p>
+    <p style="font-size:11px;color:var(--color-text-tertiary);margin:0 0 10px">45 min · Ambos socios si es posible</p>
+    <p style="font-size:11px;color:var(--color-text-tertiary);font-weight:500;margin:0 0 5px">Apertura — el recap</p>
+    <div style="position:relative"><div class="cb" id="t2a">"Antes de compartir nuestra perspectiva, quiero asegurarme de que entendí bien lo que hablamos. Lo que escuché fue:
+
+— El problema central es [X]
+— El impacto que están viendo es [Y]
+— La urgencia viene de [Z]
+
+¿Lo estoy leyendo bien, o hay algo que deba ajustar?"</div><button class="cpbtn" onclick="cp('t2a',this)">Copiar</button></div>
+    <p style="font-size:11px;color:var(--color-text-tertiary);font-weight:500;margin:8px 0 5px">Preguntas de co-diseño</p>
+    <div style="position:relative"><div class="cb" id="t2b">"¿Qué le cambiarían a este enfoque?"
+"¿Hay alguna restricción interna que debamos considerar?"
+"¿Esto resuelve lo que necesitan, o hay algo que no estamos viendo?"</div><button class="cpbtn" onclick="cp('t2b',this)">Copiar</button></div>
+    <p style="font-size:11px;color:var(--color-text-tertiary);font-weight:500;margin:8px 0 5px">Cierre</p>
+    <div style="position:relative"><div class="cb" id="t2c">"Perfecto. Con estos ajustes, tiene sentido que preparemos una propuesta formal. Antes de hacerlo, necesito alinear un par de cosas prácticas contigo — ¿tienes 20 minutos esta semana para una llamada corta?"</div><button class="cpbtn" onclick="cp('t2c',this)">Copiar</button></div>
+  </div>
+
+  <div class="card">
+    <p style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin:0 0 2px">Conversación 3 — Pre-cierre</p>
+    <p style="font-size:11px;color:var(--color-text-tertiary);margin:0 0 10px">20–30 min · Siempre por llamada</p>
+    <p style="font-size:11px;color:var(--color-text-tertiary);font-weight:500;margin:0 0 5px">Validación 1 — Presupuesto</p>
+    <div style="position:relative"><div class="cb" id="t3v1">"Proyectos de este alcance, con este nivel de complejidad, típicamente están en el rango de [banda — ej. $35–45k]. ¿Eso está dentro de lo que tienen contemplado para esta iniciativa?"</div><button class="cpbtn" onclick="cp('t3v1',this)">Copiar</button></div>
+    <p style="font-size:11px;color:var(--color-text-tertiary);font-weight:500;margin:8px 0 5px">Validación 2 — Timing</p>
+    <div style="position:relative"><div class="cb" id="t3v2">"¿Cuándo necesitarían tener esto resuelto? Y en términos de cuándo arrancar, ¿hay alguna fecha que funcione mejor internamente?"</div><button class="cpbtn" onclick="cp('t3v2',this)">Copiar</button></div>
+    <p style="font-size:11px;color:var(--color-text-tertiary);font-weight:500;margin:8px 0 5px">Validación 3 — La decisión</p>
+    <div style="position:relative"><div class="cb" id="t3v3">"Asumiendo que la propuesta refleja todo lo que hablamos, ¿quién más necesita verla o estar involucrado antes de que puedan avanzar?"</div><button class="cpbtn" onclick="cp('t3v3',this)">Copiar</button></div>
+    <p style="font-size:11px;color:var(--color-text-tertiary);font-weight:500;margin:8px 0 5px">Cierre — proponer revisión conjunta en el mismo momento del envío</p>
+    <div style="position:relative"><div class="cb" id="t3c">"Perfecto. Con esto claro, vamos a preparar la propuesta. Te la enviamos el [día concreto — máximo 5 días]. Cuando la tengas, agendemos 20 minutos para revisarla juntos — tiene más sentido que leerla solo."</div><button class="cpbtn" onclick="cp('t3c',this)">Copiar</button></div>
+  </div>
+</div>
+
+<!-- 7. ONBOARDING -->
+<div class="e5s" id="s-onboarding">
+  <p class="slbl">Onboarding del cliente — los primeros 7 días son los más críticos</p>
+  <div class="card">
+    <div class="step">
+      <div class="stepn"><p style="font-size:10px;color:var(--color-text-tertiary);margin:0">Día</p><p style="font-size:19px;font-weight:500;margin:0;color:var(--color-text-primary)">0</p></div>
+      <div class="stepc">
+        <p style="font-size:13px;font-weight:500;margin:0 0 4px;color:var(--color-text-primary)">Confirmación inmediata — mismo día de la firma</p>
+        <p class="sub" style="margin-bottom:6px">WhatsApp personal. Eliminar buyer's remorse antes de que aparezca. Nunca dejar silencio post-firma.</p>
+        <div style="position:relative"><div class="cb" id="ob0">"[Nombre], bienvenido. Estamos genuinamente emocionados con este proyecto. En las próximas 24 horas te enviamos la confirmación formal y el plan para las primeras 2 semanas. Cualquier cosa que necesites antes, aquí estamos."</div><button class="cpbtn" onclick="cp('ob0',this)">Copiar</button></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="step">
+      <div class="stepn"><p style="font-size:10px;color:var(--color-text-tertiary);margin:0">Días</p><p style="font-size:19px;font-weight:500;margin:0;color:var(--color-text-primary)">1–2</p></div>
+      <div class="stepc">
+        <p style="font-size:13px;font-weight:500;margin:0 0 4px;color:var(--color-text-primary)">Pack de bienvenida</p>
+        <div style="font-size:12px;color:var(--color-text-secondary);display:grid;gap:3px">
+          <div>— Carta de bienvenida (reconfirma problema, enfoque y semanas 1–2)</div>
+          <div>— Plan de primeras 2 semanas (fechas exactas, reuniones agendadas)</div>
+          <div>— Lista de accesos/información requerida (concreta y priorizada)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="step">
+      <div class="stepn"><p style="font-size:10px;color:var(--color-text-tertiary);margin:0">Días</p><p style="font-size:19px;font-weight:500;margin:0;color:var(--color-text-primary)">3–5</p></div>
+      <div class="stepc">
+        <p style="font-size:13px;font-weight:500;margin:0 0 4px;color:var(--color-text-primary)">Kickoff meeting — 60–90 min</p>
+        <div style="font-size:12px;color:var(--color-text-secondary);display:grid;gap:3px">
+          <div><span style="color:var(--color-text-tertiary)">10m</span> Recap del contexto — alinear a todos los presentes</div>
+          <div><span style="color:var(--color-text-tertiary)">15m</span> El problema redefinido en sus propias palabras</div>
+          <div><span style="color:var(--color-text-tertiary)">20m</span> Plan de trabajo — fases, hitos, fechas concretas</div>
+          <div><span style="color:var(--color-text-tertiary)">15m</span> Modelo de trabajo — comunicación y escalación</div>
+          <div><span style="color:var(--color-text-tertiary)">10m</span> Lo que necesitan del cliente y para cuándo</div>
+          <div><span style="color:var(--color-text-tertiary)">10m</span> Preguntas abiertas</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="step">
+      <div class="stepn"><p style="font-size:10px;color:var(--color-text-tertiary);margin:0">Semanal</p><p style="font-size:15px;font-weight:500;margin:0;color:var(--color-text-primary)">S+1→</p></div>
+      <div class="stepc">
+        <p style="font-size:13px;font-weight:500;margin:0 0 4px;color:var(--color-text-primary)">Status update semanal — sin excepción</p>
+        <div style="position:relative"><div class="cb" id="obst" style="font-size:11px">SEMANA [N] — [Nombre del proyecto]
+──────────────────────────────
+✅ COMPLETADO ESTA SEMANA
+   — [Item 1]
+
+🔄 EN PROGRESO
+   — [Item 1] → listo el [fecha]
+
+📌 PRÓXIMA SEMANA
+   — [Lo que harán]
+
+⚠️ NECESITAMOS DE SU LADO
+   — [Acción] → para el [fecha]
+
+📊 ESTADO: 🟢 En tiempo / 🟡 En riesgo / 🔴 Atrasado</div><button class="cpbtn" onclick="cp('obst',this)">Copiar</button></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <p style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin:0 0 6px">Pregunta de expansión — semana 3–4 del proyecto</p>
+    <div style="position:relative"><div class="cb" id="obexp">"[Nombre], mientras trabajamos en esto hemos visto [observación relevante]. No está dentro del alcance actual, pero creemos que vale la pena conversarlo — podría ser importante para [resultado que le importa]. ¿Tiene sentido que lo exploremos?"</div><button class="cpbtn" onclick="cp('obexp',this)">Copiar</button></div>
+    <p style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin:10px 0 6px">Pregunta del referido — al cierre del proyecto</p>
+    <div style="position:relative"><div class="cb" id="obref">"Nos alegra mucho que haya tenido este impacto. ¿Hay alguien en tu red — un colega, alguien de tu industria — que esté enfrentando un desafío similar y a quien creas que podríamos ayudar?"</div><button class="cpbtn" onclick="cp('obref',this)">Copiar</button></div>
+  </div>
+</div>
+
+<!-- 8. OPERACIÓN -->
+<div class="e5s" id="s-operacion">
+  <p class="slbl">Estructura interna de operación</p>
+  <div class="card">
+    <p class="stl">División de ownership por dominio</p>
+    <table>
+      <thead><tr><th>Dominio</th><th style="text-align:center">Ric</th><th style="text-align:center">Jose Luis</th><th style="text-align:right">Decide</th></tr></thead>
+      <tbody>
+        <tr><td>Estrategia comercial</td><td style="text-align:center;color:var(--color-text-primary);font-weight:500">Owner</td><td style="text-align:center">Input</td><td style="text-align:right">Ric</td></tr>
+        <tr><td>Desarrollo de negocio</td><td style="text-align:center;color:var(--color-text-primary);font-weight:500">Owner</td><td style="text-align:center">Soporte</td><td style="text-align:right">Ric</td></tr>
+        <tr><td>Delivery de proyectos</td><td style="text-align:center">Compartido</td><td style="text-align:center">Compartido</td><td style="text-align:right">Líder del proyecto</td></tr>
+        <tr><td>Metodología e IP</td><td style="text-align:center">Input</td><td style="text-align:center;color:var(--color-text-primary);font-weight:500">Owner</td><td style="text-align:right">Jose Luis</td></tr>
+        <tr><td>Finanzas y operación</td><td style="text-align:center;color:var(--color-text-primary);font-weight:500">Owner</td><td style="text-align:center">Input</td><td style="text-align:right">Ric</td></tr>
+        <tr><td style="border-bottom:none">Hire / contractor</td><td style="text-align:center;border-bottom:none">Acuerdo</td><td style="text-align:center;border-bottom:none">Acuerdo</td><td style="text-align:right;border-bottom:none">Ambos</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <p class="stl">Cadencia de reuniones internas</p>
+    <div style="display:grid;gap:7px">
+      <div class="blk" style="margin-bottom:0"><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-weight:500;color:var(--color-text-primary)">Weekly sync</span><span style="color:var(--color-text-tertiary)">Lun AM · 45 min</span></div><p style="margin:0">Pipeline + proyectos activos + blockers + finanzas</p></div>
+      <div class="blk" style="margin-bottom:0"><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-weight:500;color:var(--color-text-primary)">Pipeline review</span><span style="color:var(--color-text-tertiary)">Vie AM · 30 min</span></div><p style="margin:0">Oportunidades activas + próximas acciones + pipeline ponderado</p></div>
+      <div class="blk" style="margin-bottom:0"><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-weight:500;color:var(--color-text-primary)">Retrospectiva mensual</span><span style="color:var(--color-text-tertiary)">Último vie · 90 min</span></div><p style="margin:0">Qué funcionó + qué cambiar + decisiones Tipo C + salud de la sociedad</p></div>
+      <div class="blk" style="margin-bottom:0"><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-weight:500;color:var(--color-text-primary)">Planeación trimestral</span><span style="color:var(--color-text-tertiary)">Primer lun · 3h</span></div><p style="margin:0">Revenue vs. meta + ajustes de estrategia + prioridades del trimestre</p></div>
+    </div>
+  </div>
+  <div class="card">
+    <p class="stl">Modelo de decisiones</p>
+    <div style="display:grid;gap:7px">
+      <div class="blk" style="margin-bottom:0"><strong style="color:var(--color-text-primary)">Tipo A — Operativas:</strong> reversibles, bajo riesgo. Owner del dominio decide solo.</div>
+      <div class="blk" style="margin-bottom:0"><strong style="color:var(--color-text-primary)">Tipo B — Tácticas:</strong> impacto moderado. Consulta al otro socio, decide el owner. Regla: 24h para reflexionar.</div>
+      <div class="blk" style="margin-bottom:0"><strong style="color:var(--color-text-primary)">Tipo C — Estratégicas:</strong> alto impacto o irreversibles (hire, pivot, cliente anchor). Acuerdo de ambos. No se mueve sin consenso.</div>
+    </div>
+  </div>
+  <div class="card">
+    <p class="stl">Distribución de horas por socio/semana (45h)</p>
+    <div style="display:grid;gap:5px">
+      <div class="bar-row"><span style="color:var(--color-text-secondary);min-width:170px">Delivery (proyectos)</span><div class="bar-track"><div class="bar-fill" style="width:55%"></div></div><span style="min-width:70px;text-align:right;color:var(--color-text-secondary)">25h · 55%</span></div>
+      <div class="bar-row"><span style="color:var(--color-text-secondary);min-width:170px">Desarrollo de negocio</span><div class="bar-track"><div class="bar-fill" style="width:18%"></div></div><span style="min-width:70px;text-align:right;color:var(--color-text-secondary)">8h · 18%</span></div>
+      <div class="bar-row"><span style="color:var(--color-text-secondary);min-width:170px">Operación interna</span><div class="bar-track"><div class="bar-fill" style="width:9%"></div></div><span style="min-width:70px;text-align:right;color:var(--color-text-secondary)">4h · 9%</span></div>
+      <div class="bar-row"><span style="color:var(--color-text-secondary);min-width:170px">Metodología / desarrollo</span><div class="bar-track"><div class="bar-fill" style="width:9%"></div></div><span style="min-width:70px;text-align:right;color:var(--color-text-secondary)">4h · 9%</span></div>
+      <div class="bar-row"><span style="color:var(--color-text-secondary);min-width:170px">Buffer / imprevistos</span><div class="bar-track"><div class="bar-fill" style="width:9%"></div></div><span style="min-width:70px;text-align:right;color:var(--color-text-secondary)">4h · 9%</span></div>
+    </div>
+    <p style="font-size:11px;color:var(--color-text-tertiary);margin:8px 0 0;padding-top:8px;border-top:0.5px solid var(--color-border-tertiary)">Regla del 70%: si delivery supera 70% de las horas de ambos socios simultáneamente → activar contractor antes de cerrar el siguiente proyecto. Techo sin contractor: 2 core + 1 diag + 2 retainers.</p>
+  </div>
+</div>
+
+<!-- 9. CONTRACTORS -->
+<div class="e5s" id="s-contractors">
+  <p class="slbl">Modelo de contractors — escala sin nómina fija</p>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+      <div><p style="font-size:11px;color:var(--color-text-tertiary);margin:0 0 2px">Perfil 1 — Prioritario · Mes 6–8 Año 1</p><p style="font-size:14px;font-weight:500;margin:0;color:var(--color-text-primary)">Analyst / Consultor Junior</p></div>
+      <span style="font-size:13px;color:var(--color-text-secondary)">$15–25/h</span>
+    </div>
+    <p class="sub" style="margin-bottom:8px">Research, decks, análisis de datos, documentación. Sin contacto directo con CXOs. Todo entregable pasa por un socio primero.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px">
+      <div><p class="lbl">Horas/proyecto</p><p class="val">20–30h</p></div>
+      <div><p class="lbl">Costo/proyecto</p><p class="val">$3–5k</p></div>
+      <div><p class="lbl">Markup en fee</p><p class="val">40–50%</p></div>
+      <div><p class="lbl">Impacto en margen</p><p class="val">87% → 75%</p></div>
+    </div>
+  </div>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+      <div><p style="font-size:11px;color:var(--color-text-tertiary);margin:0 0 2px">Perfil 2 — Año 2</p><p style="font-size:14px;font-weight:500;margin:0;color:var(--color-text-primary)">Especialista por dominio</p></div>
+      <span style="font-size:13px;color:var(--color-text-secondary)">$30–100/h</span>
+    </div>
+    <table>
+      <tbody>
+        <tr><td>Data / analytics</td><td style="text-align:right">$40–60/h</td></tr>
+        <tr><td>Diseño de experiencia / UX</td><td style="text-align:right">$30–50/h</td></tr>
+        <tr><td>Facilitación (workshops)</td><td style="text-align:right">$500–1,000/día</td></tr>
+        <tr><td style="border-bottom:none">Legal / finanzas estratégico</td><td style="text-align:right;border-bottom:none">$60–100/h</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:11px;color:var(--color-text-tertiary);margin:8px 0 0;padding-top:8px;border-top:0.5px solid var(--color-border-tertiary)">Markup 30–40%. Presentar al cliente como "soporte especializado" — no revelar estructura interna.</p>
+  </div>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+      <div><p style="font-size:11px;color:var(--color-text-tertiary);margin:0 0 2px">Perfil 3 — Año 2–3</p><p style="font-size:14px;font-weight:500;margin:0;color:var(--color-text-primary)">Project Coordinator</p></div>
+      <span style="font-size:13px;color:var(--color-text-secondary)">$800–1,200/mes</span>
+    </div>
+    <p class="sub">Status updates, agendamiento, tracking de entregables, administrativo. Part-time 20h/semana, remoto. Libera 8–10h/semana por socio.</p>
+  </div>
+  <div class="card">
+    <p class="stl">Protocolo de activación por proyecto</p>
+    <div style="display:grid;gap:5px;font-size:12px;color:var(--color-text-secondary)">
+      <div style="display:flex;gap:8px;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary)"><span style="color:var(--color-text-tertiary);min-width:38px">Día 1</span>Brief (1 página: contexto, entregables, timeline, tarifa) + NDA — siempre</div>
+      <div style="display:flex;gap:8px;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary)"><span style="color:var(--color-text-tertiary);min-width:38px">Día 2</span>Kickoff del contractor: 30 min — expectativas, estándares, comunicación</div>
+      <div style="display:flex;gap:8px;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary)"><span style="color:var(--color-text-tertiary);min-width:38px">Semanal</span>Checkpoint 15 min: qué entregó, qué sigue, blockers</div>
+      <div style="display:flex;gap:8px;padding:5px 0"><span style="color:var(--color-text-tertiary);min-width:38px">Siempre</span>Todo entregable pasa por un socio antes de ir al cliente — sin excepción</div>
+    </div>
+  </div>
+  <div class="card">
+    <p class="stl">Evolución del modelo</p>
+    <table>
+      <thead><tr><th></th><th style="text-align:center">Año 1</th><th style="text-align:center">Año 2</th><th style="text-align:center">Año 3</th></tr></thead>
+      <tbody>
+        <tr><td>Estructura</td><td style="text-align:center">Bench de 3</td><td style="text-align:center">1–2 recurrentes</td><td style="text-align:center">2 analysts + coord.</td></tr>
+        <tr><td>Costo/año</td><td style="text-align:center">$0</td><td style="text-align:center">$15–25k</td><td style="text-align:center">$40–55k</td></tr>
+        <tr><td style="border-bottom:none">Core simultáneos</td><td style="text-align:center;border-bottom:none">2</td><td style="text-align:center;border-bottom:none">4–5</td><td style="text-align:center;border-bottom:none">7–8</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 10. LINKEDIN -->
+<div class="e5s" id="s-linkedin">
+  <p class="slbl">Estrategia de contenido LinkedIn</p>
+  <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px;margin-bottom:12px">
+    <p style="font-size:12px;color:var(--color-text-secondary);margin:0">LinkedIn no es marketing — es el pipeline de ventas más barato. Un post que resuena con un CXO vale más que 50 cold emails.</p>
+  </div>
+  <div class="card">
+    <p class="stl">3 pilares de contenido</p>
+    <div style="display:grid;gap:7px">
+      <div class="blk" style="margin-bottom:0"><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-weight:500;color:var(--color-text-primary)">Pilar 1 — Educación estratégica</span><span class="ptag">50%</span></div><p style="margin:0">Frameworks, errores comunes, pasos a paso. El CXO aprende algo útil cada vez que los lee.</p></div>
+      <div class="blk" style="margin-bottom:0"><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-weight:500;color:var(--color-text-primary)">Pilar 2 — Perspectiva y opinión</span><span class="ptag">30%</span></div><p style="margin:0">Contra-opiniones, tendencias antes de que sean obvias, lecciones honestas. Los CXOs siguen a personas con punto de vista.</p></div>
+      <div class="blk" style="margin-bottom:0"><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-weight:500;color:var(--color-text-primary)">Pilar 3 — Prueba social y proceso</span><span class="ptag">20%</span></div><p style="margin:0">Casos sin nombre, detrás del proceso, preguntas reales de clientes. Hacer tangible lo que hacen.</p></div>
+    </div>
+  </div>
+  <div class="card">
+    <p class="stl">Cadencia semanal — 4 posts entre ambos</p>
+    <table>
+      <thead><tr><th>Día</th><th>Quién</th><th>Pilar</th><th>Formato</th></tr></thead>
+      <tbody>
+        <tr><td style="font-weight:500;color:var(--color-text-primary)">Lunes</td><td>Ric</td><td>Educación</td><td>Framework o paso a paso</td></tr>
+        <tr><td style="font-weight:500;color:var(--color-text-primary)">Miércoles</td><td>Jose Luis</td><td>Opinión</td><td>Contra-opinión o tendencia</td></tr>
+        <tr><td style="font-weight:500;color:var(--color-text-primary)">Jueves</td><td>Ric</td><td>Prueba social</td><td>Caso sin nombre</td></tr>
+        <tr><td style="font-weight:500;color:var(--color-text-primary);border-bottom:none">Viernes</td><td style="border-bottom:none">Jose Luis</td><td style="border-bottom:none">Educación</td><td style="border-bottom:none">Error común o lección</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:11px;color:var(--color-text-tertiary);margin:8px 0 0;padding-top:8px;border-top:0.5px solid var(--color-border-tertiary)">~90 min/semana por socio. Domingo noche (30m) + Lunes AM (20m) + Miércoles PM (20m). Banco de ideas: mínimo 20 temas activos en Notion.</p>
+  </div>
+  <div class="card">
+    <p class="stl">KPIs que importan — no medir likes ni seguidores</p>
+    <table>
+      <thead><tr><th>Métrica</th><th style="text-align:right">Meta Año 1</th></tr></thead>
+      <tbody>
+        <tr><td>Comentarios de CXOs target por post</td><td style="text-align:right">3–5</td></tr>
+        <tr><td>DMs entrantes por semana</td><td style="text-align:right">2–4</td></tr>
+        <tr><td>Reuniones generadas desde LinkedIn/mes</td><td style="text-align:right">2–3</td></tr>
+        <tr><td style="border-bottom:none">Conexiones nuevas target/semana</td><td style="text-align:right;border-bottom:none">15–20</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <p class="stl">Templates copiables</p>
+    <p style="font-size:11px;color:var(--color-text-tertiary);font-weight:500;margin:0 0 5px">DM post-engagement (cuando un CXO comenta algo sustantivo)</p>
+    <div style="position:relative"><div class="cb" id="lidm">"[Nombre], gracias por tu comentario — me parece que tocas algo importante que no desarrollé en el post: [punto específico que mencionaron].
+
+¿Tienes 20 minutos para conversarlo? Creo que hay algo interesante ahí."</div><button class="cpbtn" onclick="cp('lidm',this)">Copiar</button></div>
+    <p style="font-size:11px;color:var(--color-text-tertiary);font-weight:500;margin:8px 0 5px">Solicitud de conexión (nunca genérica)</p>
+    <div style="position:relative"><div class="cb" id="licon">"[Nombre], leí tu comentario sobre [tema específico] y me pareció que tocas algo que pocas personas en [industria] están viendo bien.
+
+Me gustaría tenerte en mi red."</div><button class="cpbtn" onclick="cp('licon',this)">Copiar</button></div>
+  </div>
+  <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px;margin-top:8px">
+    <p style="font-size:12px;color:var(--color-text-secondary);margin:0">Timeline realista: Mes 1–2 = setup + consistencia. Mes 3–4 = primeros comentarios de CXOs. Mes 5–6 = posts con tracción. Mes 7–12 = inbound pipeline activo (2–4 reuniones/mes).</p>
+  </div>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const cfData=[
+  {mes:'Ene',en:0,sa:3500,ac:-3500},
+  {mes:'Feb',en:0,sa:1500,ac:-5000},
+  {mes:'Mar',en:10000,sa:1500,ac:3500},
+  {mes:'Abr',en:20000,sa:2000,ac:21500},
+  {mes:'May',en:0,sa:1500,ac:20000},
+  {mes:'Jun',en:25000,sa:2000,ac:43000},
+  {mes:'Jul',en:30000,sa:2000,ac:71000},
+  {mes:'Ago',en:5000,sa:1500,ac:74500},
+  {mes:'Sep',en:20000,sa:2000,ac:92500},
+  {mes:'Oct',en:25000,sa:2000,ac:115500},
+  {mes:'Nov',en:5000,sa:1500,ac:119000},
+  {mes:'Dic',en:20000,sa:24500,ac:114500}
+];
+
+const tbody=document.getElementById('cftbody');
+cfData.forEach(r=>{
+  const s=r.en-r.sa;
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td style="font-weight:500;color:var(--color-text-primary);border-bottom:0.5px solid var(--color-border-tertiary)">${r.mes}</td><td style="text-align:right;border-bottom:0.5px solid var(--color-border-tertiary);color:${r.en>0?'var(--color-text-primary)':'var(--color-text-tertiary)'}">${r.en>0?'$'+r.en.toLocaleString():'—'}</td><td style="text-align:right;border-bottom:0.5px solid var(--color-border-tertiary)">$${r.sa.toLocaleString()}</td><td style="text-align:right;border-bottom:0.5px solid var(--color-border-tertiary);color:${s>=0?'var(--color-text-primary)':'var(--color-text-danger)'}">${s>=0?'+':''}$${s.toLocaleString()}</td><td style="text-align:right;border-bottom:0.5px solid var(--color-border-tertiary);font-weight:500;color:${r.ac>=0?'var(--color-text-primary)':'var(--color-text-danger)'}">$${r.ac.toLocaleString()}</td>`;
+  tbody.appendChild(tr);
+});
+
+const ctx=document.getElementById('cfChart');
+if(ctx){
+  new Chart(ctx,{
+    type:'line',
+    data:{
+      labels:cfData.map(d=>d.mes),
+      datasets:[{
+        label:'Acumulado',
+        data:cfData.map(d=>d.ac),
+        borderColor:'#555',
+        borderWidth:2,
+        pointBackgroundColor:cfData.map(d=>d.ac<0?'#c0392b':'#555'),
+        pointRadius:4,
+        tension:0.3,
+        fill:false
+      }]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.parsed.y.toLocaleString()}}},
+      scales:{
+        x:{grid:{display:false},ticks:{font:{size:11},color:'#888'}},
+        y:{grid:{color:'rgba(128,128,128,0.1)'},ticks:{font:{size:11},color:'#888',callback:v=>'$'+(v/1000).toFixed(0)+'k'}}
+      }
+    }
+  });
+}
+
+const tabs=['proyecciones','flujo','pricing','pipeline','propuesta','templates','onboarding','operacion','contractors','linkedin'];
+const btns=document.querySelectorAll('.tbe');
+
+function sw(id){
+  tabs.forEach(t=>{const el=document.getElementById('s-'+t);if(el)el.style.display=t===id?'block':'none';});
+  btns.forEach(b=>b.classList.toggle('atab',b.dataset.tab===id));
+}
+btns.forEach(b=>b.addEventListener('click',()=>sw(b.dataset.tab)));
+sw('proyecciones');
+
+function cp(id,btn){
+  const el=document.getElementById(id);
+  if(!el)return;
+  navigator.clipboard.writeText(el.innerText).then(()=>{
+    const o=btn.innerText;btn.innerText='✓ Listo';
+    setTimeout(()=>btn.innerText=o,1500);
+  });
+}
+</script>
