@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nombre del Proyecto — E5 Modular</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0f0f11;
+      --surface:   #17171a;
+      --border:    #2a2a2e;
+      --accent:    #c8a96e;
+      --accent-dim:#8a7248;
+      --text:      #e8e6e1;
+      --muted:     #8a8885;
+      --radius:    12px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wordmark {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .logo-placeholder {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+      color: #0f0f11;
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .brand-name span { color: var(--accent); }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      margin-left: 32px;
+      transition: color .2s;
+    }
+
+    nav a:hover { color: var(--text); }
+
+    /* ── Breadcrumb ── */
+    .breadcrumb {
+      padding: 20px 48px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .breadcrumb a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .breadcrumb a:hover { color: var(--accent); }
+    .breadcrumb .sep { opacity: .4; }
+
+    /* ── Project header ── */
+    .project-hero {
+      padding: 36px 48px 40px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project-hero-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .project-title-group { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+
+    .project-icon { font-size: 28px; line-height: 1; }
+
+    .project-hero h1 {
+      font-size: 26px;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .project-hero .client {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .status-badge {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+      align-self: flex-start;
+      margin-top: 4px;
+    }
+
+    .status-active    { background: rgba(74,222,128,.12); color: #4ade80; }
+    .status-pending   { background: rgba(251,191,36,.10); color: #fbbf24; }
+    .status-completed { background: rgba(148,163,184,.10); color: #94a3b8; }
+
+    /* Meta row */
+    .meta-row {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .meta-item { display: flex; flex-direction: column; gap: 3px; }
+    .meta-item .label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+    .meta-item .value { font-size: 14px; font-weight: 500; }
+
+    /* ── Layout ── */
+    .page-body {
+      padding: 40px 48px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* ── Content area (main left column) ── */
+    .content { display: flex; flex-direction: column; gap: 28px; }
+
+    /* Generic section block */
+    .block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+    .block-title {
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+
+    /* Description / notes */
+    .block p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .block p + p { margin-top: 10px; }
+
+    /* Deliverables list */
+    .deliverable-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+    .deliverable-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+    }
+
+    .check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+
+    .check.done { background: rgba(74,222,128,.15); border-color: #4ade80; color: #4ade80; }
+    .check.pending { background: rgba(251,191,36,.10); border-color: #fbbf24; color: #fbbf24; }
+    .check.todo { opacity: .4; }
+
+    /* Progress bar */
+    .progress-wrap { margin-top: 4px; }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .progress-label span { color: var(--muted); }
+    .progress-label strong { color: var(--accent); }
+
+    .progress-bar {
+      height: 6px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 99px;
+      transition: width .4s ease;
+    }
+
+    /* ──────────────────────────────────────────
+       ZONA FLEXIBLE — para dashboards / charts
+       Agrega bloques .embed-block dentro de .content
+       con iframes, canvas de Chart.js, tablas, etc.
+    ────────────────────────────────────────── */
+    .embed-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .embed-block iframe,
+    .embed-block canvas,
+    .embed-block img {
+      width: 100%;
+      display: block;
+    }
+
+    /* Table */
+    .data-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .data-table th {
+      text-align: left;
+      padding: 10px 12px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+    }
+    .data-table td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: rgba(255,255,255,.02); }
+
+    /* ── Sidebar (right column) ── */
+    .sidebar { display: flex; flex-direction: column; gap: 20px; }
+
+    .sidebar-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+
+    .sidebar-title {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    /* Key-value pairs in sidebar */
+    .kv-list { display: flex; flex-direction: column; gap: 10px; }
+    .kv { display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+    .kv .k { color: var(--muted); }
+    .kv .v { font-weight: 500; }
+
+    /* Links in sidebar */
+    .link-list { display: flex; flex-direction: column; gap: 8px; }
+    .link-list a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 8px 10px;
+      border-radius: 8px;
+      transition: all .2s;
+    }
+    .link-list a:hover { background: rgba(200,169,110,.08); color: var(--accent); }
+
+    /* Team avatars */
+    .team-list { display: flex; flex-direction: column; gap: 10px; }
+    .team-member { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+    .avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-body { grid-template-columns: 1fr; }
+      .sidebar { order: -1; }
+    }
+
+    @media (max-width: 640px) {
+      header, .breadcrumb, .project-hero, .page-body, footer {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+      nav { display: none; }
+      .project-hero-top { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ HEADER ══ -->
+  <header>
+    <a class="wordmark" href="../index.html">
+      <div class="logo-placeholder">E5</div>
+      <span class="brand-name">E5 <span>Modular</span></span>
+    </a>
+    <nav>
+      <a href="../index.html">Proyectos</a>
+      <a href="#">Equipo</a>
+      <a href="#">Contacto</a>
+    </nav>
+  </header>
+
+  <!-- ══ BREADCRUMB ══ -->
+  <div class="breadcrumb">
+    <a href="../index.html">Proyectos</a>
+    <span class="sep">›</span>
+    <span>Nombre del Proyecto</span>  <!-- EDITAR -->
+  </div>
+
+  <!-- ══ PROJECT HEADER ══ -->
+  <div class="project-hero">
+    <div class="project-hero-top">
+      <div class="project-title-group">
+        <span class="project-icon">📋</span>  <!-- EDITAR ícono -->
+        <div>
+          <h1>Nombre del Proyecto</h1>         <!-- EDITAR -->
+          <p class="client">Cliente: Nombre del Cliente</p>  <!-- EDITAR -->
+        </div>
+      </div>
+      <span class="status-badge status-active">Activo</span>  <!-- EDITAR estado -->
+    </div>
+    <div class="meta-row">
+      <div class="meta-item">
+        <span class="label">Inicio</span>
+        <span class="value">Ene 2026</span>  <!-- EDITAR -->
+      </div>
+      <div class="meta-item">
+        <span class="label">Entrega estimada</span>
+        <span class="value">Jun 2026</span>  <!-- EDITAR -->
+      </div>
+      <div class="meta-item">
+        <span class="label">Fase actual</span>
+        <span class="value">Diagnóstico</span>  <!-- EDITAR -->
+      </div>
+      <div class="meta-item">
+        <span class="label">Avance</span>
+        <span class="value">40%</span>  <!-- EDITAR (debe coincidir con progress-fill) -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ BODY ══ -->
+  <div class="page-body">
+
+    <!-- ── COLUMNA PRINCIPAL ── -->
+    <div class="content">
+
+      <!-- Descripción -->
+      <div class="block">
+        <p class="block-title">Descripción del proyecto</p>
+        <p>Escribe aquí el contexto general del proyecto. Qué problema se está resolviendo, cuál es el alcance y cuáles son los objetivos principales.</p>
+        <p>Este espacio puede tener múltiples párrafos. Modifica el texto según cada proyecto.</p>
+      </div>
+
+      <!-- Progreso -->
+      <div class="block">
+        <p class="block-title">Progreso general</p>
+        <div class="progress-wrap">
+          <div class="progress-label">
+            <span>Avance del proyecto</span>
+            <strong>40%</strong>  <!-- EDITAR -->
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 40%"></div>  <!-- EDITAR width -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Entregables -->
+      <div class="block">
+        <p class="block-title">Entregables</p>
+        <ul class="deliverable-list">
+          <li>
+            <span class="check done">✓</span>
+            Diagnóstico inicial  <!-- EDITAR -->
+          </li>
+          <li>
+            <span class="check done">✓</span>
+            Entrevistas con stakeholders  <!-- EDITAR -->
+          </li>
+          <li>
+            <span class="check pending">→</span>
+            Reporte de hallazgos  <!-- EDITAR -->
+          </li>
+          <li>
+            <span class="check todo">○</span>
+            Plan de implementación  <!-- EDITAR -->
+          </li>
+          <li>
+            <span class="check todo">○</span>
+            Presentación ejecutiva final  <!-- EDITAR -->
+          </li>
+        </ul>
+      </div>
+
+      <!--
+      ══════════════════════════════════════════════
+      ZONA PARA DASHBOARDS / CHARTS / TABLAS
+      Descomenta y adapta los bloques que necesites
+      ══════════════════════════════════════════════
+
+      OPCIÓN A — Tabla de datos
+      <div class="block">
+        <p class="block-title">Métricas clave</p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Indicador</th>
+              <th>Línea base</th>
+              <th>Meta</th>
+              <th>Actual</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tiempo de ciclo (días)</td>
+              <td>12</td>
+              <td>8</td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <td>Costo por proceso ($)</td>
+              <td>4,200</td>
+              <td>3,000</td>
+              <td>3,600</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      OPCIÓN B — Gráfica con Chart.js
+      Agrega antes de </body>:
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <div class="block embed-block">
+        <div style="padding: 24px">
+          <p class="block-title">Avance por fase</p>
+          <canvas id="miGrafica" height="200"></canvas>
+        </div>
+      </div>
+      <script>
+        new Chart(document.getElementById('miGrafica'), {
+          type: 'bar',
+          data: {
+            labels: ['Diagnóstico', 'Análisis', 'Diseño', 'Implementación'],
+            datasets: [{
+              label: 'Avance (%)',
+              data: [100, 80, 40, 0],
+              backgroundColor: 'rgba(200,169,110,0.7)',
+              borderColor: '#c8a96e',
+              borderWidth: 1,
+              borderRadius: 6,
+            }]
+          },
+          options: {
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { grid: { color: '#2a2a2e' }, ticks: { color: '#8a8885' } },
+              y: { grid: { color: '#2a2a2e' }, ticks: { color: '#8a8885' }, max: 100 }
+            }
+          }
+        });
+      </script>
+
+      OPCIÓN C — Iframe (Google Sheets, Looker Studio, etc.)
+      <div class="embed-block" style="border-radius: 12px; overflow: hidden;">
+        <iframe src="TU_URL_AQUÍ" height="500" frameborder="0"></iframe>
+      </div>
+
+      -->
+
+    </div><!-- /content -->
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="sidebar">
+
+      <!-- Datos del proyecto -->
+      <div class="sidebar-block">
+        <p class="sidebar-title">Detalles</p>
+        <div class="kv-list">
+          <div class="kv">
+            <span class="k">Cliente</span>
+            <span class="v">Nombre</span>  <!-- EDITAR -->
+          </div>
+          <div class="kv">
+            <span class="k">Industria</span>
+            <span class="v">Manufactura</span>  <!-- EDITAR -->
+          </div>
+          <div class="kv">
+            <span class="k">Tipo</span>
+            <span class="v">Consultoría</span>  <!-- EDITAR -->
+          </div>
+          <div class="kv">
+            <span class="k">Presupuesto</span>
+            <span class="v">Confidencial</span>  <!-- EDITAR o eliminar -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Equipo -->
+      <div class="sidebar-block">
+        <p class="sidebar-title">Equipo</p>
+        <div class="team-list">
+          <div class="team-member">
+            <div class="avatar">R</div>
+            <span>Ricardo</span>  <!-- EDITAR -->
+          </div>
+          <div class="team-member">
+            <div class="avatar">S</div>
+            <span>Socio</span>  <!-- EDITAR -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Documentos / Links -->
+      <div class="sidebar-block">
+        <p class="sidebar-title">Documentos</p>
+        <div class="link-list">
+          <a href="#">
+            📄 Propuesta inicial
+          </a>
+          <a href="#">
+            📊 Presentación diagnóstico
+          </a>
+          <a href="#">
+            📁 Carpeta del proyecto
+          </a>
+          <!-- Agrega más links aquí -->
+        </div>
+      </div>
+
+    </aside>
+
+  </div><!-- /page-body -->
+
+  <footer>
+    <span>© 2026 E5 Modular</span>
+    <a href="../index.html" style="color: var(--muted); text-decoration: none;">← Volver a proyectos</a>
+  </footer>
+
+</body>
+</html>

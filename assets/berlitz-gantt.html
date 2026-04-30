@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Berlitz E5 — Gantt Chart</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f1117;
+    --surface: #171b26;
+    --border: #252a38;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --p0: #5b8dee;
+    --p1: #34d399;
+    --p2: #f59e0b;
+    --p3: #e879f9;
+    --p4: #38bdf8;
+    --p5: #fb923c;
+    --today: #ef4444;
+    --row-h: 34px;
+    --label-w: 300px;
+  }
+
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; min-height: 100vh; }
+
+  header { padding: 28px 32px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-end; justify-content: space-between; }
+  header h1 { font-size: 20px; font-weight: 600; letter-spacing: -0.3px; }
+  header p  { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+  .gantt-wrap { overflow-x: auto; padding: 0 0 32px; }
+  .gantt { display: flex; min-width: max-content; }
+
+  /* LEFT PANEL */
+  .tasks-panel { width: var(--label-w); min-width: var(--label-w); border-right: 1px solid var(--border); flex-shrink: 0; }
+  .tasks-header { height: 52px; display: flex; align-items: flex-end; padding: 0 12px 10px; border-bottom: 1px solid var(--border); font-size: 11px; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; }
+
+  .task-row { height: var(--row-h); display: flex; align-items: center; border-bottom: 1px solid #1a1f2e; cursor: default; transition: background 0.1s; }
+  .task-row:hover { background: #1a1f2e; }
+  .task-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; }
+
+  .level-1 .task-name { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; padding-left: 12px; }
+  .level-2 .task-name { font-size: 13px; font-weight: 600; padding-left: 12px; }
+  .level-3 .task-name { font-size: 12px; font-weight: 400; padding-left: 26px; color: #94a3b8; }
+  .level-4 .task-name { font-size: 11px; font-weight: 400; padding-left: 42px; color: #64748b; }
+  .level-1 { background: #0d1018; }
+  .level-2 { background: #131720; }
+
+  .phase-toggle { cursor: pointer; user-select: none; }
+  .phase-toggle .caret { display: inline-block; margin-right: 5px; transition: transform 0.2s; font-size: 9px; color: var(--muted); }
+  .phase-toggle.collapsed .caret { transform: rotate(-90deg); }
+
+  /* RIGHT PANEL — CHART */
+  .chart-panel { flex: 1; overflow: visible; }
+  .chart-header { height: 52px; border-bottom: 1px solid var(--border); position: relative; }
+  .month-label { position: absolute; bottom: 28px; font-size: 10px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; padding-left: 6px; }
+  .week-label  { position: absolute; bottom: 8px;  font-size: 9px;  color: #3a4255; font-family: 'DM Mono', monospace; }
+  .week-line   { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--border); opacity: 0.4; }
+
+  .chart-body { position: relative; }
+  .chart-row { height: var(--row-h); position: relative; border-bottom: 1px solid #1a1f2e; }
+  .chart-row.level-1 { background: #0d1018; }
+  .chart-row.level-2 { background: #131720; }
+
+  .grid-line { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--border); opacity: 0.25; }
+  .today-line { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--today); opacity: 0.7; z-index: 10; }
+  .today-label { position: absolute; top: 6px; font-size: 9px; color: var(--today); font-family: 'DM Mono', monospace; white-space: nowrap; transform: translateX(-50%); }
+
+  .bar { position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; display: flex; align-items: center; padding: 0 6px; min-width: 4px; overflow: hidden; cursor: default; }
+  .bar-label { font-size: 10px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: rgba(255,255,255,0.9); }
+  .bar-qw { border: 1.5px solid; border-radius: 3px; }
+
+  .bar-lv2 { height: 20px; }
+  .bar-lv3 { height: 14px; opacity: 0.9; }
+  .bar-lv4 { height: 8px;  opacity: 0.75; border-radius: 2px; }
+
+  .milestone { width: 14px; height: 14px; transform: translateY(-50%) rotate(45deg); border-radius: 2px; position: absolute; top: 50%; }
+
+  /* tooltip */
+  .tip { position: fixed; background: #1e2436; border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; font-size: 12px; line-height: 1.8; pointer-events: none; z-index: 1000; max-width: 260px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); display: none; }
+  .tip strong { display: block; font-size: 13px; margin-bottom: 4px; }
+  .tip .tip-row { color: var(--muted); }
+  .tip .tip-row span { color: var(--text); }
+
+  /* stats bar */
+  .stats { display: flex; gap: 32px; padding: 16px 32px; border-bottom: 1px solid var(--border); }
+  .stat-item { display: flex; flex-direction: column; }
+  .stat-val { font-size: 22px; font-weight: 600; letter-spacing: -0.5px; }
+  .stat-lbl { font-size: 11px; color: var(--muted); margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Berlitz CENAM — E5 Transformation Roadmap</h1>
+    <p>Equipo: Ric (Data) · Socio (MBA) · Dir. Comercial Berlitz &nbsp;·&nbsp; Opción B Scope &nbsp;·&nbsp; Constraints aplicados</p>
+  </div>
+  <div class="legend" id="legend"></div>
+</header>
+
+<div class="stats" id="stats"></div>
+<div class="gantt-wrap"><div class="gantt" id="gantt"></div></div>
+<div class="tip" id="tip"></div>
+
+<script>
+// ─── DATA ────────────────────────────────────────────────────────────────────
+// Dates adjusted for 3-person constraints:
+//   • Ric bottleneck: 1.3 starts after 1.2 fully done
+//   • Dir.Com bottleneck: Sprint 2 starts after Sprint 1 execution ends
+const TASKS = [
+  // FASE 0
+  {id:2,  lv:2, ph:0, name:"FASE 0: PRE-ENGAGE",            s:"2026-04-29", e:"2026-05-05", res:"E5 Lead"},
+  {id:3,  lv:3, ph:0, name:"Scoping Call",                   s:"2026-04-29", e:"2026-04-29", res:"E5 Lead + Dir. General"},
+  {id:4,  lv:3, ph:0, name:"Validar Participantes",           s:"2026-04-30", e:"2026-04-30", res:"E5 Lead"},
+  {id:5,  lv:3, ph:0, name:"Firmar NDA y Términos",           s:"2026-05-01", e:"2026-05-05", res:"E5 Lead + Dir. General"},
+  // FASE 1
+  {id:6,  lv:2, ph:1, name:"FASE 1: EXAMINE (2 semanas)",    s:"2026-05-06", e:"2026-05-15", res:"Ric + Socio + Dir. Com", note:"Opción B — 10 días hábiles con constraints de Ric"},
+  {id:7,  lv:3, ph:1, name:"1.1 Restricciones Franquicia",   s:"2026-05-06", e:"2026-05-13", res:"Socio", note:"NO SKIPEABLE"},
+  {id:8,  lv:4, ph:1, name:"1.1.1 Revisar Contrato",         s:"2026-05-06", e:"2026-05-07", res:"Socio"},
+  {id:9,  lv:4, ph:1, name:"1.1.2 Mapear Margen Diferenc.",  s:"2026-05-08", e:"2026-05-11", res:"Ric"},
+  {id:10, lv:4, ph:1, name:"1.1.3 Matriz Palancas",          s:"2026-05-12", e:"2026-05-13", res:"Ric"},
+  {id:11, lv:3, ph:1, name:"1.2 Unit Economics (skinny)",    s:"2026-05-06", e:"2026-05-12", res:"Ric ← BOTTLENECK", note:"Ric hace esto antes de 1.3"},
+  {id:12, lv:4, ph:1, name:"1.2.1 Costeo Profesor",          s:"2026-05-06", e:"2026-05-06", res:"Ric"},
+  {id:13, lv:4, ph:1, name:"1.2.2 Margen por Programa",      s:"2026-05-07", e:"2026-05-08", res:"Ric"},
+  {id:14, lv:4, ph:1, name:"1.2.3 Baseline Revenue",         s:"2026-05-11", e:"2026-05-12", res:"Ric + Dir. Com"},
+  {id:15, lv:3, ph:1, name:"1.3 Ranking Cuentas (skinny)",   s:"2026-05-07", e:"2026-05-12", res:"Ric + Dir. Com", note:"Parallel con 1.2 — Dir. Com extrae datos"},
+  {id:16, lv:4, ph:1, name:"1.3.1-2 Extraer HubSpot/Exactus",s:"2026-05-07", e:"2026-05-07", res:"Dir. Com + Ric"},
+  {id:17, lv:4, ph:1, name:"1.3.3 Cruzar y Rankear",         s:"2026-05-08", e:"2026-05-11", res:"Ric"},
+  {id:18, lv:4, ph:1, name:"1.3.4 Top 10 + Renovación",      s:"2026-05-12", e:"2026-05-12", res:"Ric + Dir. Com"},
+  {id:19, lv:3, ph:1, name:"1.5 Auditoría Campañas (skinny)",s:"2026-05-06", e:"2026-05-12", res:"Ric + Dir. Com"},
+  {id:23, lv:3, ph:1, name:"1.7 Quick Wins ✦ (Sem 2)",       s:"2026-05-12", e:"2026-05-15", res:"Dir. Com", qw:true},
+  // FASE 2
+  {id:28, lv:2, ph:2, name:"FASE 2: ENGINEER (1 semana)",    s:"2026-05-18", e:"2026-05-22", res:"Ric + Socio"},
+  {id:29, lv:3, ph:2, name:"2.1 Unit Econ Framework",        s:"2026-05-18", e:"2026-05-20", res:"Socio + Ric"},
+  {id:30, lv:3, ph:2, name:"2.2 Pricing Framework",          s:"2026-05-18", e:"2026-05-20", res:"Socio"},
+  {id:31, lv:3, ph:2, name:"2.3 Medición de Campañas",       s:"2026-05-18", e:"2026-05-20", res:"Ric"},
+  {id:32, lv:3, ph:2, name:"2.4 Dashboard Design",           s:"2026-05-21", e:"2026-05-22", res:"Ric"},
+  {id:33, lv:3, ph:2, name:"2.5 Priorización de EXECUTE",    s:"2026-05-21", e:"2026-05-22", res:"Socio"},
+  // FASE 3 — constraint applied: Sprint 2 waits for Sprint 1 execution
+  {id:34, lv:2, ph:3, name:"FASE 3: EXECUTE (8-9 semanas)",  s:"2026-05-25", e:"2026-08-03", res:"Mixed team", note:"Sprints secuenciales: Dir. Com es única ejecutora"},
+  {id:35, lv:3, ph:3, name:"3.1 Sprint 1: Retención (Sem 5-7)",s:"2026-05-25",e:"2026-06-19",res:"Dir. Com ← ejecutora"},
+  {id:36, lv:4, ph:3, name:"3.1.1 Diseñar Mecánica",         s:"2026-05-25", e:"2026-05-29", res:"Dir. Com + Socio"},
+  {id:38, lv:4, ph:3, name:"QW6: Lista Riesgo 90d ✦",        s:"2026-05-25", e:"2026-05-25", res:"Dir. Com", qw:true},
+  {id:39, lv:4, ph:3, name:"3.1.4 Acción Top Account",       s:"2026-06-01", e:"2026-06-19", res:"Dir. Com"},
+  {id:40, lv:3, ph:3, name:"3.2 Sprint 2: Pricing (Sem 7-10)",s:"2026-06-22",e:"2026-08-03",res:"Dir. Com ← espera Sprint 1", note:"CONSTRAINT: empieza cuando Sprint 1 termina"},
+  {id:41, lv:4, ph:3, name:"3.2.1 Implementar Diferenciación",s:"2026-06-22",e:"2026-07-03",res:"Dir. Com"},
+  {id:42, lv:4, ph:3, name:"QW7: Test Precio Piloto ZF ✦",   s:"2026-07-06", e:"2026-08-01", res:"Dir. Com", qw:true, note:"BOTTLENECK: 20d al 50% tiempo Dir. Com"},
+  {id:43, lv:4, ph:3, name:"3.2.3 Medir Elasticidad",        s:"2026-08-03", e:"2026-08-03", res:"Ric + Dir. Com"},
+  {id:44, lv:3, ph:3, name:"3.3 Sprint 3: Mix Modalidades",  s:"2026-05-25", e:"2026-06-18", res:"Ric + Ops (PARALELO)"},
+  {id:45, lv:4, ph:3, name:"3.3.1 Modelo Asignación",        s:"2026-05-25", e:"2026-06-05", res:"Ric + Ops"},
+  {id:46, lv:4, ph:3, name:"3.3.2 Umbral Horas/Profesor",    s:"2026-06-08", e:"2026-06-09", res:"Ops"},
+  {id:47, lv:4, ph:3, name:"3.3.3 Piloto 1-2 Sedes",         s:"2026-06-10", e:"2026-06-18", res:"Ops"},
+  {id:48, lv:3, ph:3, name:"3.4 Dashboard Operativo",        s:"2026-05-25", e:"2026-06-19", res:"Ric + IT (PARALELO)"},
+  {id:49, lv:4, ph:3, name:"3.4.1 Construir Dashboard",      s:"2026-05-25", e:"2026-06-05", res:"Ric + IT Berlitz"},
+  {id:50, lv:4, ph:3, name:"3.4.2 Piloto Sedes",             s:"2026-06-08", e:"2026-06-11", res:"Ric + Ops"},
+  {id:51, lv:4, ph:3, name:"3.4.3 Desplegar Todas Sedes",    s:"2026-06-12", e:"2026-06-19", res:"Ric + IT Berlitz"},
+  // FASE 4
+  {id:52, lv:2, ph:4, name:"FASE 4: ELEVATE (paralelo + post-EXECUTE)",  s:"2026-06-22", e:"2026-08-17", res:"Ric + Socio"},
+  {id:53, lv:3, ph:4, name:"4.1 Modelo Predictivo Churn",    s:"2026-08-04", e:"2026-08-17", res:"Ric"},
+  {id:54, lv:3, ph:4, name:"4.2 Matriz Rentabilidad",        s:"2026-08-04", e:"2026-08-17", res:"Ric"},
+  {id:55, lv:3, ph:4, name:"4.3 Programa de Referidos",      s:"2026-06-22", e:"2026-07-03", res:"Dir. Com + Ric"},
+  {id:56, lv:3, ph:4, name:"4.4 Integración HubSpot+Exactus",s:"2026-06-22", e:"2026-07-17", res:"Ric + IT Berlitz"},
+  // FASE 5
+  {id:57, lv:2, ph:5, name:"FASE 5: EVOLVE (Semestral+)",    s:"2026-08-18", e:"2026-10-09", res:"E5 Lead + Ric"},
+  {id:58, lv:3, ph:5, name:"5.1 Revisión Trimestral KPIs",   s:"2026-08-18", e:"2026-09-25", res:"E5 Lead + Dir. General"},
+  {id:59, lv:3, ph:5, name:"5.2 Eval Virtual vs. Presencial",s:"2026-08-18", e:"2026-09-01", res:"Ric + E5 Lead"},
+  {id:60, lv:3, ph:5, name:"5.3 Playbook Estacional",        s:"2026-08-18", e:"2026-09-01", res:"Ric + Dir. Com"},
+  {id:61, lv:3, ph:5, name:"5.4 Gate de Expansión",          s:"2026-09-26", e:"2026-10-09", res:"E5 Lead + Dir. General"},
+];
+
+const PHASES = [
+  { id:0, label:"PRE-ENGAGE", color:"#5b8dee" },
+  { id:1, label:"EXAMINE",    color:"#34d399" },
+  { id:2, label:"ENGINEER",   color:"#f59e0b" },
+  { id:3, label:"EXECUTE",    color:"#e879f9" },
+  { id:4, label:"ELEVATE",    color:"#38bdf8" },
+  { id:5, label:"EVOLVE",     color:"#fb923c" },
+];
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+const parseDate = s => new Date(s + "T00:00:00");
+const DAY_MS = 86400000;
+const diffDays = (a, b) => Math.round((b - a) / DAY_MS);
+const fmt = d => d.toLocaleDateString('es-CR', { day:'2-digit', month:'short' });
+const fmtFull = d => d.toLocaleDateString('es-CR', { day:'2-digit', month:'short', year:'numeric' });
+
+const PROJECT_START = parseDate("2026-04-28"); // 1 day before to add padding
+const PROJECT_END   = parseDate("2026-10-16");
+const TOTAL_DAYS = diffDays(PROJECT_START, PROJECT_END);
+const TODAY = new Date(); TODAY.setHours(0,0,0,0);
+const CELL_W = 18; // px per day
+const TOTAL_W = TOTAL_DAYS * CELL_W;
+
+const phaseColor = ph => PHASES[ph].color;
+const phaseBg    = ph => phaseColor(ph) + "22";
+
+// ─── BUILD HEADER ─────────────────────────────────────────────────────────────
+function buildHeader() {
+  const header = document.querySelector('.chart-header');
+  header.style.width = TOTAL_W + 'px';
+
+  // week lines + labels
+  let d = new Date(PROJECT_START);
+  let lastMonth = -1;
+  while (d <= PROJECT_END) {
+    const x = diffDays(PROJECT_START, d) * CELL_W;
+    // week line
+    const wl = document.createElement('div');
+    wl.className = 'week-line'; wl.style.left = x + 'px';
+    header.appendChild(wl);
+    // month label
+    if (d.getMonth() !== lastMonth) {
+      lastMonth = d.getMonth();
+      const ml = document.createElement('div');
+      ml.className = 'month-label'; ml.style.left = x + 'px';
+      ml.textContent = d.toLocaleDateString('es-CR', { month:'short', year:'2-digit' }).toUpperCase();
+      header.appendChild(ml);
+    }
+    // week number label
+    const wnum = document.createElement('div');
+    wnum.className = 'week-label'; wnum.style.left = (x + 2) + 'px';
+    wnum.textContent = 'S' + String(Math.ceil((d - new Date(d.getFullYear(),0,1)) / (7*DAY_MS)));
+    header.appendChild(wnum);
+    // advance 1 week
+    d = new Date(d.getTime() + 7 * DAY_MS);
+  }
+  // today line in header
+  const tx = diffDays(PROJECT_START, TODAY) * CELL_W;
+  if (tx >= 0 && tx <= TOTAL_W) {
+    const tl = document.createElement('div');
+    tl.className = 'today-line'; tl.style.left = tx + 'px';
+    const tlbl = document.createElement('div');
+    tlbl.className = 'today-label'; tlbl.style.left = tx + 'px';
+    tlbl.textContent = 'HOY';
+    header.appendChild(tl);
+    header.appendChild(tlbl);
+  }
+}
+
+// ─── BUILD ROWS ───────────────────────────────────────────────────────────────
+const collapsedPhases = new Set();
+
+function buildRows() {
+  const taskPanel  = document.querySelector('.tasks-panel');
+  const chartBody  = document.querySelector('.chart-body');
+  taskPanel.innerHTML  = `<div class="tasks-header">Tarea</div>`;
+  chartBody.innerHTML  = '';
+  chartBody.style.width = TOTAL_W + 'px';
+
+  // grid lines
+  let d = new Date(PROJECT_START);
+  while (d <= PROJECT_END) {
+    const x = diffDays(PROJECT_START, d) * CELL_W;
+    const gl = document.createElement('div');
+    gl.className = 'grid-line'; gl.style.left = x + 'px';
+    chartBody.appendChild(gl);
+    d = new Date(d.getTime() + 7 * DAY_MS);
+  }
+  // today line
+  const tx = diffDays(PROJECT_START, TODAY) * CELL_W;
+  if (tx >= 0 && tx <= TOTAL_W) {
+    const tl = document.createElement('div');
+    tl.className = 'today-line'; tl.style.left = tx + 'px';
+    chartBody.appendChild(tl);
+  }
+
+  TASKS.forEach(t => {
+    const ph = t.ph;
+    // hide if parent phase collapsed
+    if (t.lv > 2 && collapsedPhases.has(ph)) return;
+
+    const color = phaseColor(ph);
+    const start = parseDate(t.s);
+    const end   = parseDate(t.e);
+    const dur   = Math.max(1, diffDays(start, end) + 1);
+
+    // ── task label row
+    const lr = document.createElement('div');
+    lr.className = `task-row level-${t.lv}`;
+    if (t.lv === 2) lr.style.backgroundColor = color + '11';
+    const isPhaseHeader = t.lv === 2;
+    lr.innerHTML = `<span class="task-name ${isPhaseHeader ? 'phase-toggle' : ''}" data-ph="${ph}">
+      ${isPhaseHeader ? `<span class="caret ${collapsedPhases.has(ph) ? 'collapsed' : ''}">▼</span>` : ''}${t.name}
+    </span>`;
+    taskPanel.appendChild(lr);
+
+    // ── chart row
+    const cr = document.createElement('div');
+    cr.className = `chart-row level-${t.lv}`;
+    if (t.lv === 2) cr.style.backgroundColor = color + '08';
+
+    // bar
+    const x   = diffDays(PROJECT_START, start) * CELL_W;
+    const w   = dur * CELL_W;
+    const bar = document.createElement('div');
+
+    if (t.lv === 2) {
+      bar.className = 'bar bar-lv2';
+      bar.style.cssText = `left:${x}px; width:${w}px; background:${color}33; border:1.5px solid ${color}77;`;
+      bar.innerHTML = `<span class="bar-label" style="color:${color}">${t.name.replace(/^FASE \d+:\s*/,'')}</span>`;
+    } else if (t.lv === 3) {
+      if (t.qw) {
+        bar.className = 'bar bar-lv3 bar-qw';
+        bar.style.cssText = `left:${x}px; width:${Math.max(w,60)}px; background:${color}15; border-color:${color}; color:${color};`;
+        bar.innerHTML = `<span class="bar-label" style="color:${color}">${t.name}</span>`;
+      } else {
+        bar.className = 'bar bar-lv3';
+        bar.style.cssText = `left:${x}px; width:${w}px; background:${color}55;`;
+        bar.innerHTML = w > 40 ? `<span class="bar-label">${t.name}</span>` : '';
+      }
+    } else {
+      bar.className = 'bar bar-lv4';
+      bar.style.cssText = `left:${x}px; width:${Math.max(w,4)}px; background:${color}99;`;
+    }
+
+    // tooltip
+    bar.dataset.id   = t.id;
+    bar.dataset.name = t.name;
+    bar.dataset.s    = t.s;
+    bar.dataset.e    = t.e;
+    bar.dataset.dur  = dur;
+    bar.dataset.res  = t.res || '';
+    bar.dataset.note = t.note || '';
+
+    cr.appendChild(bar);
+    chartBody.appendChild(cr);
+  });
+
+  // collapse toggles
+  document.querySelectorAll('.phase-toggle').forEach(el => {
+    el.addEventListener('click', () => {
+      const ph = parseInt(el.dataset.ph);
+      if (collapsedPhases.has(ph)) collapsedPhases.delete(ph);
+      else collapsedPhases.add(ph);
+      buildRows();
+    });
+  });
+}
+
+// ─── TOOLTIP ──────────────────────────────────────────────────────────────────
+const tip = document.getElementById('tip');
+document.addEventListener('mousemove', e => {
+  const bar = e.target.closest('.bar');
+  if (!bar || !bar.dataset.name) { tip.style.display = 'none'; return; }
+  tip.style.display = 'block';
+  tip.style.left = (e.clientX + 14) + 'px';
+  tip.style.top  = (e.clientY - 10) + 'px';
+  const dur = bar.dataset.dur;
+  const note = bar.dataset.note ? `<div class="tip-row">📌 <span>${bar.dataset.note}</span></div>` : '';
+  tip.innerHTML = `
+    <strong>${bar.dataset.name}</strong>
+    <div class="tip-row">📅 <span>${fmtFull(parseDate(bar.dataset.s))} → ${fmtFull(parseDate(bar.dataset.e))}</span></div>
+    <div class="tip-row">⏱ <span>${dur} días hábiles</span></div>
+    ${bar.dataset.res ? `<div class="tip-row">👤 <span>${bar.dataset.res}</span></div>` : ''}
+    ${note}
+  `;
+});
+document.addEventListener('mouseleave', () => tip.style.display = 'none');
+
+// ─── LEGEND + STATS ──────────────────────────────────────────────────────────
+function buildLegend() {
+  const leg = document.getElementById('legend');
+  PHASES.forEach(p => {
+    leg.innerHTML += `<div class="legend-item">
+      <div class="legend-dot" style="background:${p.color}"></div>
+      ${p.label}
+    </div>`;
+  });
+}
+
+function buildStats() {
+  const el = document.getElementById('stats');
+  const projectEnd = parseDate("2026-10-09");
+  const weeks = Math.round(diffDays(parseDate("2026-04-29"), projectEnd) / 7);
+  const qws = TASKS.filter(t => t.qw).length;
+  const sprints = 3;
+  el.innerHTML = `
+    <div class="stat-item"><span class="stat-val">${weeks}</span><span class="stat-lbl">Semanas totales</span></div>
+    <div class="stat-item"><span class="stat-val">3</span><span class="stat-lbl">Personas (equipo)</span></div>
+    <div class="stat-item"><span class="stat-val">${qws}</span><span class="stat-lbl">Quick Wins</span></div>
+    <div class="stat-item"><span class="stat-val">${sprints}</span><span class="stat-lbl">Sprints EXECUTE</span></div>
+    <div class="stat-item"><span class="stat-val" style="color:#ef4444">Oct 9</span><span class="stat-lbl">Fin estimado (con constraints)</span></div>
+    <div class="stat-item"><span class="stat-val" style="color:var(--muted);font-size:14px">Sep 8</span><span class="stat-lbl">Sin constraints (optimista)</span></div>
+  `;
+}
+
+// ─── STRUCTURE ────────────────────────────────────────────────────────────────
+document.getElementById('gantt').innerHTML = `
+  <div class="tasks-panel">
+    <div class="tasks-header">Tarea</div>
+  </div>
+  <div class="chart-panel">
+    <div class="chart-header"></div>
+    <div class="chart-body"></div>
+  </div>
+`;
+
+buildLegend();
+buildStats();
+buildHeader();
+buildRows();
+</script>
+</body>
+</html>
