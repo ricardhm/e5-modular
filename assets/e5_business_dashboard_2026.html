@@ -1,46 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Operativo 2026 — E5 Modular</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-<h2 class="sr-only">Dashboard actualizado con estructura fiscal CR 2026: impuesto corporativo PYME/30%, IVA 13%, retención dividendos 15%</h2>
-<style>
-.e5s{padding-top:0.25rem}
-.tbe{font-size:12px;padding:5px 12px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);border-radius:var(--border-radius-md);cursor:pointer;font-family:var(--font-sans);white-space:nowrap}
-.tbe.atab{background:var(--color-background-secondary);color:var(--color-text-primary);border-color:var(--color-border-primary);font-weight:500}
-.tbe:hover{background:var(--color-background-secondary);color:var(--color-text-primary)}
-.mc{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:0.875rem}
-.ml{font-size:11px;color:var(--color-text-secondary);margin:0 0 3px}
-.mv{font-size:21px;font-weight:500;color:var(--color-text-primary);margin:0}
-.ms{font-size:11px;color:var(--color-text-tertiary);margin:2px 0 0}
-.slbl{font-size:11px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.07em;margin:0 0 12px}
-.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.125rem;margin-bottom:10px}
-.card:last-child{margin-bottom:0}
-.div{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:10px 0}
-.cb{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:0.75rem 0.875rem;font-size:12px;color:var(--color-text-secondary);line-height:1.6;white-space:pre-wrap;font-family:var(--font-mono);position:relative;margin-bottom:8px}
-.cpbtn{position:absolute;top:7px;right:7px;font-size:10px;padding:2px 7px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-secondary);border-radius:var(--border-radius-md);cursor:pointer;font-family:var(--font-sans)}
-.stl{font-size:13px;font-weight:500;color:var(--color-text-primary);margin:0 0 10px}
-.sub{font-size:12px;color:var(--color-text-secondary);margin:0}
-.lbl{font-size:11px;color:var(--color-text-tertiary);margin:0 0 2px}
-.val{font-size:13px;color:var(--color-text-primary);margin:0}
-table{width:100%;font-size:12px;border-collapse:collapse}
-th{text-align:left;padding:5px 0;color:var(--color-text-secondary);font-weight:500;border-bottom:0.5px solid var(--color-border-tertiary)}
-td{padding:6px 0;color:var(--color-text-secondary);border-bottom:0.5px solid var(--color-border-tertiary)}
-tr:last-child td{border-bottom:none}
-.blk{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:8px 10px;font-size:12px;color:var(--color-text-secondary);margin-bottom:7px}
-.blk:last-child{margin-bottom:0}
-.step{display:flex;gap:12px;align-items:flex-start}
-.stepn{min-width:48px;text-align:center}
-.stepc{border-left:0.5px solid var(--color-border-tertiary);padding-left:12px;flex:1}
-.bar-row{display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:6px}
-.bar-track{flex:1;height:7px;background:var(--color-background-secondary);border-radius:3px}
-.bar-fill{height:100%;background:var(--color-text-secondary);border-radius:3px}
-.frow{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:4px}
-.ptag{font-size:11px;padding:3px 8px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);color:var(--color-text-secondary)}
-.warn{background:var(--color-background-warning);border-radius:var(--border-radius-md);padding:8px 12px;font-size:12px;color:var(--color-text-warning)}
-.info{background:var(--color-background-info);border-radius:var(--border-radius-md);padding:8px 12px;font-size:12px;color:var(--color-text-info)}
-.badge{display:inline-flex;align-items:center;font-size:11px;padding:2px 7px;border-radius:100px;font-weight:500}
-.badge-ok{background:var(--color-background-success);color:var(--color-text-success)}
-.badge-warn{background:var(--color-background-warning);color:var(--color-text-warning)}
-</style>
+    :root {
+      /* Backgrounds */
+      --color-background-primary:   #0f0f11;
+      --color-background-secondary: #17171a;
+      --color-background-warning:   rgba(251,191,36,.10);
+      --color-background-info:      rgba(147,197,253,.08);
+      --color-background-success:   rgba(74,222,128,.12);
 
-<div style="font-family:var(--font-sans);max-width:680px">
+      /* Borders */
+      --color-border-primary:   #c8a96e;
+      --color-border-secondary: #3a3a3e;
+      --color-border-tertiary:  #2a2a2e;
+
+      /* Text */
+      --color-text-primary:   #e8e6e1;
+      --color-text-secondary: #b0aea9;
+      --color-text-tertiary:  #8a8885;
+      --color-text-warning:   #fbbf24;
+      --color-text-info:      #93c5fd;
+      --color-text-success:   #4ade80;
+      --color-text-danger:    #f87171;
+
+      /* Radius */
+      --border-radius-sm: 6px;
+      --border-radius-md: 8px;
+      --border-radius-lg: 12px;
+
+      /* Fonts */
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    }
+
+    body {
+      background: var(--color-background-primary);
+      color: var(--color-text-primary);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Site header ── */
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 32px;
+      border-bottom: 1px solid var(--color-border-tertiary);
+    }
+
+    .wordmark {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .logo-placeholder {
+      width: 34px;
+      height: 34px;
+      border-radius: 7px;
+      background: var(--color-border-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 13px;
+      color: #0f0f11;
+      flex-shrink: 0;
+    }
+
+    .brand-name { font-size: 15px; font-weight: 600; }
+    .brand-name span { color: var(--color-border-primary); }
+
+    .back-link {
+      font-size: 13px;
+      color: var(--color-text-tertiary);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .back-link:hover { color: var(--color-text-primary); }
+
+    /* ── Page wrapper ── */
+    .page-wrapper {
+      padding: 32px;
+      max-width: 760px;
+    }
+
+    .page-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .page-subtitle {
+      font-size: 13px;
+      color: var(--color-text-tertiary);
+      margin-bottom: 28px;
+    }
+
+    /* ── Dashboard content (original styles preserved) ── */
+    .e5s{padding-top:0.25rem}
+    .tbe{font-size:12px;padding:5px 12px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);border-radius:var(--border-radius-md);cursor:pointer;font-family:var(--font-sans);white-space:nowrap}
+    .tbe.atab{background:var(--color-background-secondary);color:var(--color-text-primary);border-color:var(--color-border-primary);font-weight:500}
+    .tbe:hover{background:var(--color-background-secondary);color:var(--color-text-primary)}
+    .mc{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:0.875rem}
+    .ml{font-size:11px;color:var(--color-text-secondary);margin:0 0 3px}
+    .mv{font-size:21px;font-weight:500;color:var(--color-text-primary);margin:0}
+    .ms{font-size:11px;color:var(--color-text-tertiary);margin:2px 0 0}
+    .slbl{font-size:11px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.07em;margin:0 0 12px}
+    .card{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.125rem;margin-bottom:10px}
+    .card:last-child{margin-bottom:0}
+    .div{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:10px 0}
+    .cb{background:var(--color-background-primary);border-radius:var(--border-radius-md);padding:0.75rem 0.875rem;font-size:12px;color:var(--color-text-secondary);line-height:1.6;white-space:pre-wrap;font-family:var(--font-mono);position:relative;margin-bottom:8px;border:0.5px solid var(--color-border-tertiary)}
+    .cpbtn{position:absolute;top:7px;right:7px;font-size:10px;padding:2px 7px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);border-radius:var(--border-radius-md);cursor:pointer;font-family:var(--font-sans)}
+    .cpbtn:hover{color:var(--color-text-primary);border-color:var(--color-border-primary)}
+    .stl{font-size:13px;font-weight:500;color:var(--color-text-primary);margin:0 0 10px}
+    .sub{font-size:12px;color:var(--color-text-secondary);margin:0}
+    .lbl{font-size:11px;color:var(--color-text-tertiary);margin:0 0 2px}
+    .val{font-size:13px;color:var(--color-text-primary);margin:0}
+    table{width:100%;font-size:12px;border-collapse:collapse}
+    th{text-align:left;padding:5px 0;color:var(--color-text-secondary);font-weight:500;border-bottom:0.5px solid var(--color-border-tertiary)}
+    td{padding:6px 0;color:var(--color-text-secondary);border-bottom:0.5px solid var(--color-border-tertiary)}
+    tr:last-child td{border-bottom:none}
+    .blk{background:var(--color-background-primary);border-radius:var(--border-radius-md);padding:8px 10px;font-size:12px;color:var(--color-text-secondary);margin-bottom:7px;border:0.5px solid var(--color-border-tertiary)}
+    .blk:last-child{margin-bottom:0}
+    .step{display:flex;gap:12px;align-items:flex-start}
+    .stepn{min-width:48px;text-align:center}
+    .stepc{border-left:0.5px solid var(--color-border-tertiary);padding-left:12px;flex:1}
+    .bar-row{display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:6px}
+    .bar-track{flex:1;height:6px;background:var(--color-background-primary);border-radius:3px;border:0.5px solid var(--color-border-tertiary)}
+    .bar-fill{height:100%;background:var(--color-border-primary);border-radius:3px}
+    .frow{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:4px}
+    .ptag{font-size:11px;padding:3px 8px;background:var(--color-background-primary);border-radius:var(--border-radius-md);color:var(--color-text-tertiary);border:0.5px solid var(--color-border-tertiary)}
+    .warn{background:var(--color-background-warning);border-radius:var(--border-radius-md);padding:8px 12px;font-size:12px;color:var(--color-text-warning);border:0.5px solid rgba(251,191,36,.2)}
+    .info{background:var(--color-background-info);border-radius:var(--border-radius-md);padding:8px 12px;font-size:12px;color:var(--color-text-info);border:0.5px solid rgba(147,197,253,.15)}
+    .badge{display:inline-flex;align-items:center;font-size:11px;padding:2px 7px;border-radius:100px;font-weight:500}
+    .badge-ok{background:var(--color-background-success);color:var(--color-text-success)}
+    .badge-warn{background:var(--color-background-warning);color:var(--color-text-warning)}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="wordmark" href="../index.html">
+      <div class="logo-placeholder">E5</div>
+      <span class="brand-name">E5 <span>Modular</span></span>
+    </a>
+    <a class="back-link" href="../index.html">← Volver a proyectos</a>
+  </header>
+
+  <div class="page-wrapper">
+    <h1 class="page-title">Dashboard Operativo</h1>
+    <p class="page-subtitle">Estructura fiscal CR 2026 · Proyecciones, pricing y operación interna</p>
+
+    <h2 class="sr-only">Dashboard actualizado con estructura fiscal CR 2026: impuesto corporativo PYME/30%, IVA 13%, retención dividendos 15%</h2>
+
+<div style="font-family:var(--font-sans)">
 
 <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:1.25rem;padding-bottom:10px;border-bottom:0.5px solid var(--color-border-tertiary)">
   <button class="tbe" data-tab="proyecciones">Proyecciones</button>
@@ -77,7 +206,6 @@ tr:last-child td{border-bottom:none}
     <div class="mc"><p class="ml">Año 3</p><p class="mv">$100k</p><p class="ms">Tasa efectiva 40.5%</p></div>
   </div>
 
-  <!-- Desglose fiscal completo -->
   <div class="card">
     <p class="stl">Desglose fiscal por escenario — puro dividendo, base cero gastos</p>
     <table>
@@ -94,14 +222,7 @@ tr:last-child td{border-bottom:none}
         <tr><td>Revenue empresa (ex-IVA)</td><td style="text-align:right">$157k</td><td style="text-align:right">$280k</td><td style="text-align:right">$384k</td></tr>
         <tr><td>OPEX estimado</td><td style="text-align:right">$12.5k</td><td style="text-align:right">$28k</td><td style="text-align:right">$48k</td></tr>
         <tr><td style="color:var(--color-text-primary);font-weight:500">Renta Neta (base imponible)</td><td style="text-align:right;font-weight:500;color:var(--color-text-primary)">$144.5k</td><td style="text-align:right;font-weight:500;color:var(--color-text-primary)">$252k</td><td style="text-align:right;font-weight:500;color:var(--color-text-primary)">$336k</td></tr>
-        <tr>
-          <td>
-            Régimen fiscal
-          </td>
-          <td style="text-align:right"><span class="badge badge-ok">PYME ✅</span></td>
-          <td style="text-align:right"><span class="badge badge-warn">30% 🔴</span></td>
-          <td style="text-align:right"><span class="badge badge-warn">30% 🔴</span></td>
-        </tr>
+        <tr><td>Régimen fiscal</td><td style="text-align:right"><span class="badge badge-ok">PYME ✅</span></td><td style="text-align:right"><span class="badge badge-warn">30% 🔴</span></td><td style="text-align:right"><span class="badge badge-warn">30% 🔴</span></td></tr>
         <tr><td>Tasa efectiva corporativa</td><td style="text-align:right">~18.3%</td><td style="text-align:right">30.0%</td><td style="text-align:right">30.0%</td></tr>
         <tr><td>Impuesto corporativo</td><td style="text-align:right">$26.5k</td><td style="text-align:right">$75.6k</td><td style="text-align:right">$100.8k</td></tr>
         <tr><td>Utilidad post-impuesto</td><td style="text-align:right">$118k</td><td style="text-align:right">$176.4k</td><td style="text-align:right">$235.2k</td></tr>
@@ -113,7 +234,6 @@ tr:last-child td{border-bottom:none}
     </table>
   </div>
 
-  <!-- El cliff -->
   <div class="card">
     <p class="stl">El cliff del PYME — umbral crítico a gestionar</p>
     <div class="warn" style="margin-bottom:10px">
@@ -126,7 +246,6 @@ tr:last-child td{border-bottom:none}
     </div>
   </div>
 
-  <!-- IVA mechanics -->
   <div class="card">
     <p class="stl">IVA 13% — mecánica real</p>
     <div style="display:grid;gap:7px;font-size:12px">
@@ -136,7 +255,6 @@ tr:last-child td{border-bottom:none}
     </div>
   </div>
 
-  <!-- Revenue mix -->
   <div class="card">
     <p class="stl">Mix de revenue — cifras ex-IVA (base imponible empresa)</p>
     <table>
@@ -151,7 +269,7 @@ tr:last-child td{border-bottom:none}
   </div>
 </div>
 
-<!-- 2. FLUJO DE CAJA — UPDATED -->
+<!-- 2. FLUJO DE CAJA -->
 <div class="e5s" id="s-flujo">
   <p class="slbl">Flujo de caja — Año 1 mes a mes · cifras ex-IVA</p>
 
@@ -167,7 +285,7 @@ tr:last-child td{border-bottom:none}
 
   <div class="card">
     <div style="position:relative;width:100%;height:200px">
-      <canvas id="cfChart" role="img" aria-label="Flujo de caja acumulado Año 1 actualizado. Negativo en Ene-Feb, sube consistentemente hasta 135k en Nov, cierra en 128.5k en Dic por pago de impuesto corporativo $26.5k.">Acumulado: Ene -3.5k, Feb -5k, Mar 4.5k, Abr 24.5k, May 23k, Jun 49k, Jul 80k, Ago 84.5k, Sep 104.5k, Oct 130.5k, Nov 135k, Dic 128.5k</canvas>
+      <canvas id="cfChart" role="img" aria-label="Flujo de caja acumulado Año 1.">Acumulado: Ene -3.5k, Feb -5k, Mar 4.5k, Abr 24.5k, May 23k, Jun 49k, Jul 80k, Ago 84.5k, Sep 104.5k, Oct 130.5k, Nov 135k, Dic 128.5k</canvas>
     </div>
   </div>
 
@@ -195,7 +313,7 @@ tr:last-child td{border-bottom:none}
         <tr><td style="color:var(--color-text-primary);font-weight:500;border-bottom:none">Neto en mano por socio</td><td style="text-align:right;color:var(--color-text-primary);font-weight:500;border-bottom:none">$50k c/u ✅</td></tr>
       </tbody>
     </table>
-    <p style="font-size:11px;color:var(--color-text-tertiary);margin:8px 0 0;padding-top:8px;border-top:0.5px solid var(--color-border-tertiary)">Impuesto corporativo ($26.5k) se provisiona y paga vía pagos parciales trimestrales (meses 3, 6, 9 y 12 del año fiscal ≈ $6.6k c/u). En el flujo se muestra como provisión en Dic para simplicidad.</p>
+    <p style="font-size:11px;color:var(--color-text-tertiary);margin:8px 0 0;padding-top:8px;border-top:0.5px solid var(--color-border-tertiary)">Impuesto corporativo ($26.5k) se provisiona y paga vía pagos parciales trimestrales (meses 3, 6, 9 y 12 del año fiscal ≈ $6.6k c/u).</p>
   </div>
 
   <div class="card">
@@ -215,7 +333,7 @@ tr:last-child td{border-bottom:none}
   </div>
 </div>
 
-<!-- 3. PRICING — UPDATED -->
+<!-- 3. PRICING -->
 <div class="e5s" id="s-pricing">
   <p class="slbl">Arquitectura de pricing — actualizado por carga fiscal 2026</p>
 
@@ -272,7 +390,6 @@ tr:last-child td{border-bottom:none}
     </div>
   </div>
 
-  <!-- Revenue mix -->
   <div class="card">
     <p class="stl">Revenue mix proyectado — ex-IVA (base imponible empresa)</p>
     <table>
@@ -286,7 +403,6 @@ tr:last-child td{border-bottom:none}
     <p style="font-size:11px;color:var(--color-text-tertiary);margin:8px 0 0;padding-top:8px;border-top:0.5px solid var(--color-border-tertiary)">Facturación total al cliente incl. IVA: $177k / $317k / $434k. En las propuestas comerciales siempre presentar precio ex-IVA con nota "más IVA 13% según ley."</p>
   </div>
 
-  <!-- Implicaciones para la conversación de ventas -->
   <div class="card">
     <p class="stl">Cómo presentar el pricing con IVA en la conversación de ventas</p>
     <div style="display:grid;gap:7px">
@@ -297,7 +413,7 @@ tr:last-child td{border-bottom:none}
   </div>
 </div>
 
-<!-- 4. PIPELINE — unchanged content -->
+<!-- 4. PIPELINE -->
 <div class="e5s" id="s-pipeline">
   <p class="slbl">Modelo de pipeline — matemática del funnel</p>
   <div class="card">
@@ -338,7 +454,7 @@ tr:last-child td{border-bottom:none}
   </div>
 </div>
 
-<!-- 5–10: unchanged tabs -->
+<!-- 5. PROPUESTA -->
 <div class="e5s" id="s-propuesta">
   <p class="slbl">Proceso de propuesta — la propuesta confirma, no convence</p>
   <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px;margin-bottom:12px"><p style="font-size:12px;color:var(--color-text-secondary);margin:0">Si la propuesta es la primera vez que el cliente ve el precio, ya perdieron.</p></div>
@@ -348,6 +464,7 @@ tr:last-child td{border-bottom:none}
   <div class="card"><p class="stl">El documento (6–8 páginas)</p><div style="display:grid;gap:4px;font-size:12px;color:var(--color-text-secondary)"><div style="display:flex;gap:8px;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary)"><span style="color:var(--color-text-tertiary);min-width:16px">1.</span>El contexto — el problema en sus palabras</div><div style="display:flex;gap:8px;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary)"><span style="color:var(--color-text-tertiary);min-width:16px">2.</span>Lo que está en juego — costo de no actuar</div><div style="display:flex;gap:8px;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary)"><span style="color:var(--color-text-tertiary);min-width:16px">3.</span>Nuestro enfoque — fases y metodología</div><div style="display:flex;gap:8px;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary)"><span style="color:var(--color-text-tertiary);min-width:16px">4.</span>Entregables concretos por fase</div><div style="display:flex;gap:8px;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary)"><span style="color:var(--color-text-tertiary);min-width:16px">5.</span>Cronograma con hitos y checkpoints</div><div style="display:flex;gap:8px;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary)"><span style="color:var(--color-text-tertiary);min-width:16px">6.</span>Inversión (ex-IVA) + nota "más IVA 13%"</div><div style="display:flex;gap:8px;padding:5px 0"><span style="color:var(--color-text-tertiary);min-width:16px">7.</span>Próximos pasos exactos y sin ambigüedad</div></div></div>
 </div>
 
+<!-- 6. TEMPLATES -->
 <div class="e5s" id="s-templates">
   <p class="slbl">Templates copiables — conversaciones 1, 2 y 3</p>
   <div class="card"><p style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin:0 0 2px">Conversación 1 — Apertura</p><p style="font-size:11px;color:var(--color-text-tertiary);margin:0 0 10px">Diagnóstico del dolor · 45–60 min</p><p style="font-size:11px;color:var(--color-text-tertiary);font-weight:500;margin:0 0 5px">Apertura</p><div style="position:relative"><div class="cb" id="t1a">"[Nombre], gracias por el tiempo. Antes de hablar de nosotros o de lo que hacemos, quiero entender bien qué está pasando en [empresa]. ¿Te parece si empezamos por ahí?"</div><button class="cpbtn" onclick="cp('t1a',this)">Copiar</button></div><p style="font-size:11px;color:var(--color-text-tertiary);font-weight:500;margin:8px 0 5px">Bloque 1 — El problema</p><div style="position:relative"><div class="cb" id="t1b1">1. "¿Cuéntame qué está pasando con [tema]. ¿Qué les preocupa específicamente?"
@@ -370,6 +487,7 @@ tr:last-child td{border-bottom:none}
   <div class="card"><p style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin:0 0 2px">Conversación 3 — Pre-cierre</p><p style="font-size:11px;color:var(--color-text-tertiary);margin:0 0 10px">20–30 min · Siempre por llamada</p><p style="font-size:11px;color:var(--color-text-tertiary);font-weight:500;margin:0 0 5px">Validación 1 — Presupuesto (presentar precio ex-IVA)</p><div style="position:relative"><div class="cb" id="t3v1">"Proyectos de este alcance típicamente están en el rango de [banda ex-IVA — ej. $38–52k], más IVA del 13% que aplicaría en la factura. ¿Eso está dentro de lo que tienen contemplado?"</div><button class="cpbtn" onclick="cp('t3v1',this)">Copiar</button></div><p style="font-size:11px;color:var(--color-text-tertiary);font-weight:500;margin:8px 0 5px">Validación 2 — Timing</p><div style="position:relative"><div class="cb" id="t3v2">"¿Cuándo necesitarían tener esto resuelto? Y en términos de cuándo arrancar, ¿hay alguna fecha que funcione mejor internamente?"</div><button class="cpbtn" onclick="cp('t3v2',this)">Copiar</button></div><p style="font-size:11px;color:var(--color-text-tertiary);font-weight:500;margin:8px 0 5px">Validación 3 — La decisión</p><div style="position:relative"><div class="cb" id="t3v3">"Asumiendo que la propuesta refleja todo lo que hablamos, ¿quién más necesita verla o estar involucrado antes de que puedan avanzar?"</div><button class="cpbtn" onclick="cp('t3v3',this)">Copiar</button></div><p style="font-size:11px;color:var(--color-text-tertiary);font-weight:500;margin:8px 0 5px">Cierre</p><div style="position:relative"><div class="cb" id="t3c">"Perfecto. Con esto claro, vamos a preparar la propuesta. Te la enviamos el [día concreto]. Cuando la tengas, agendemos 20 minutos para revisarla juntos — tiene más sentido que leerla solo."</div><button class="cpbtn" onclick="cp('t3c',this)">Copiar</button></div></div>
 </div>
 
+<!-- 7. ONBOARDING -->
 <div class="e5s" id="s-onboarding">
   <p class="slbl">Onboarding del cliente</p>
   <div class="card"><div class="step"><div class="stepn"><p style="font-size:10px;color:var(--color-text-tertiary);margin:0">Día</p><p style="font-size:19px;font-weight:500;margin:0;color:var(--color-text-primary)">0</p></div><div class="stepc"><p style="font-size:13px;font-weight:500;margin:0 0 4px;color:var(--color-text-primary)">Confirmación inmediata</p><p class="sub" style="margin-bottom:6px">WhatsApp personal. Eliminar buyer's remorse antes de que aparezca.</p><div style="position:relative"><div class="cb" id="ob0">"[Nombre], bienvenido. Estamos genuinamente emocionados con este proyecto. En las próximas 24 horas te enviamos la confirmación formal y el plan para las primeras 2 semanas."</div><button class="cpbtn" onclick="cp('ob0',this)">Copiar</button></div></div></div></div>
@@ -393,6 +511,7 @@ tr:last-child td{border-bottom:none}
   <div class="card"><p style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin:0 0 6px">Pregunta del referido — al cierre</p><div style="position:relative"><div class="cb" id="obref">"Nos alegra mucho que haya tenido este impacto. ¿Hay alguien en tu red — un colega, alguien de tu industria — que esté enfrentando un desafío similar y a quien creas que podríamos ayudar?"</div><button class="cpbtn" onclick="cp('obref',this)">Copiar</button></div></div>
 </div>
 
+<!-- 8. OPERACIÓN -->
 <div class="e5s" id="s-operacion">
   <p class="slbl">Estructura interna de operación</p>
   <div class="card"><p class="stl">División de ownership por dominio</p><table><thead><tr><th>Dominio</th><th style="text-align:center">Ric</th><th style="text-align:center">Jose Luis</th><th style="text-align:right">Decide</th></tr></thead><tbody><tr><td>Estrategia comercial</td><td style="text-align:center;color:var(--color-text-primary);font-weight:500">Owner</td><td style="text-align:center">Input</td><td style="text-align:right">Ric</td></tr><tr><td>Desarrollo de negocio</td><td style="text-align:center;color:var(--color-text-primary);font-weight:500">Owner</td><td style="text-align:center">Soporte</td><td style="text-align:right">Ric</td></tr><tr><td>Delivery de proyectos</td><td style="text-align:center">Compartido</td><td style="text-align:center">Compartido</td><td style="text-align:right">Líder del proyecto</td></tr><tr><td>Metodología e IP</td><td style="text-align:center">Input</td><td style="text-align:center;color:var(--color-text-primary);font-weight:500">Owner</td><td style="text-align:right">Jose Luis</td></tr><tr><td>Finanzas y operación</td><td style="text-align:center;color:var(--color-text-primary);font-weight:500">Owner</td><td style="text-align:center">Input</td><td style="text-align:right">Ric</td></tr><tr><td style="border-bottom:none">Hire / contractor</td><td style="text-align:center;border-bottom:none">Acuerdo</td><td style="text-align:center;border-bottom:none">Acuerdo</td><td style="text-align:right;border-bottom:none">Ambos</td></tr></tbody></table></div>
@@ -400,6 +519,7 @@ tr:last-child td{border-bottom:none}
   <div class="card"><p class="stl">Techo de capacidad (45h/socio/semana)</p><div style="display:grid;gap:5px"><div class="bar-row"><span style="color:var(--color-text-secondary);min-width:170px">Delivery</span><div class="bar-track"><div class="bar-fill" style="width:55%"></div></div><span style="min-width:80px;text-align:right;color:var(--color-text-secondary)">25h · 55%</span></div><div class="bar-row"><span style="color:var(--color-text-secondary);min-width:170px">Desarrollo de negocio</span><div class="bar-track"><div class="bar-fill" style="width:18%"></div></div><span style="min-width:80px;text-align:right;color:var(--color-text-secondary)">8h · 18%</span></div><div class="bar-row"><span style="color:var(--color-text-secondary);min-width:170px">Operación interna</span><div class="bar-track"><div class="bar-fill" style="width:9%"></div></div><span style="min-width:80px;text-align:right;color:var(--color-text-secondary)">4h · 9%</span></div><div class="bar-row"><span style="color:var(--color-text-secondary);min-width:170px">Metodología</span><div class="bar-track"><div class="bar-fill" style="width:9%"></div></div><span style="min-width:80px;text-align:right;color:var(--color-text-secondary)">4h · 9%</span></div></div><p style="font-size:11px;color:var(--color-text-tertiary);margin:8px 0 0;padding-top:8px;border-top:0.5px solid var(--color-border-tertiary)">Regla 70%: si delivery supera 70% de las horas de ambos → activar contractor antes de cerrar el siguiente proyecto.</p></div>
 </div>
 
+<!-- 9. CONTRACTORS -->
 <div class="e5s" id="s-contractors">
   <p class="slbl">Modelo de contractors</p>
   <div class="card"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px"><div><p style="font-size:11px;color:var(--color-text-tertiary);margin:0 0 2px">Perfil 1 — Prioritario · Mes 6–8 Año 1</p><p style="font-size:14px;font-weight:500;margin:0;color:var(--color-text-primary)">Analyst / Consultor Junior</p></div><span style="font-size:13px;color:var(--color-text-secondary)">$15–25/h</span></div><p class="sub" style="margin-bottom:8px">Research, decks, análisis, documentación. Sin contacto directo con CXOs.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px"><div><p class="lbl">Costo/proyecto</p><p class="val">$3–5k</p></div><div><p class="lbl">Markup en fee</p><p class="val">40–50%</p></div></div></div>
@@ -407,6 +527,7 @@ tr:last-child td{border-bottom:none}
   <div class="card"><p class="stl">Evolución del modelo</p><table><thead><tr><th></th><th style="text-align:center">Año 1</th><th style="text-align:center">Año 2</th><th style="text-align:center">Año 3</th></tr></thead><tbody><tr><td>Estructura</td><td style="text-align:center">Bench de 3</td><td style="text-align:center">1–2 recurrentes</td><td style="text-align:center">2 analysts + coord.</td></tr><tr><td>Costo/año</td><td style="text-align:center">$0</td><td style="text-align:center">$15–25k</td><td style="text-align:center">$40–55k</td></tr><tr><td style="border-bottom:none">Core simultáneos</td><td style="text-align:center;border-bottom:none">2</td><td style="text-align:center;border-bottom:none">4–5</td><td style="text-align:center;border-bottom:none">7–8</td></tr></tbody></table></div>
 </div>
 
+<!-- 10. LINKEDIN -->
 <div class="e5s" id="s-linkedin">
   <p class="slbl">Estrategia de contenido LinkedIn</p>
   <div class="card"><p class="stl">3 pilares de contenido</p><div style="display:grid;gap:7px"><div class="blk"><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-weight:500;color:var(--color-text-primary)">Pilar 1 — Educación estratégica</span><span class="ptag">50%</span></div><p style="margin:0">Frameworks, errores comunes, pasos a paso. El CXO aprende algo útil cada vez.</p></div><div class="blk"><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-weight:500;color:var(--color-text-primary)">Pilar 2 — Perspectiva y opinión</span><span class="ptag">30%</span></div><p style="margin:0">Contra-opiniones, tendencias, lecciones honestas. Los CXOs siguen a personas con punto de vista.</p></div><div class="blk"><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-weight:500;color:var(--color-text-primary)">Pilar 3 — Prueba social y proceso</span><span class="ptag">20%</span></div><p style="margin:0">Casos sin nombre, detrás del proceso, preguntas reales de clientes.</p></div></div></div>
@@ -418,7 +539,8 @@ tr:last-child td{border-bottom:none}
 Me gustaría tenerte en mi red."</div><button class="cpbtn" onclick="cp('licon',this)">Copiar</button></div></div>
 </div>
 
-</div>
+</div><!-- /dashboard wrapper -->
+  </div><!-- /page-wrapper -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
@@ -441,7 +563,7 @@ const tbody=document.getElementById('cftbody');
 cfData.forEach(r=>{
   const s=r.en-r.sa;
   const tr=document.createElement('tr');
-  tr.innerHTML=`<td style="font-weight:500;color:var(--color-text-primary);border-bottom:0.5px solid var(--color-border-tertiary)">${r.mes}</td><td style="text-align:right;border-bottom:0.5px solid var(--color-border-tertiary);color:${r.en>0?'var(--color-text-primary)':'var(--color-text-tertiary)'}">${r.en>0?'$'+r.en.toLocaleString():'—'}</td><td style="text-align:right;border-bottom:0.5px solid var(--color-border-tertiary)">$${r.sa.toLocaleString()}</td><td style="text-align:right;border-bottom:0.5px solid var(--color-border-tertiary);color:${s>=0?'var(--color-text-primary)':'var(--color-text-danger)'}">${s>=0?'+':''}$${s.toLocaleString()}</td><td style="text-align:right;border-bottom:0.5px solid var(--color-border-tertiary);font-weight:500;color:${r.ac>=0?'var(--color-text-primary)':'var(--color-text-danger)'}">$${r.ac.toLocaleString()}</td>`;
+  tr.innerHTML=`<td style="font-weight:500;color:#e8e6e1;border-bottom:0.5px solid #2a2a2e">${r.mes}</td><td style="text-align:right;border-bottom:0.5px solid #2a2a2e;color:${r.en>0?'#e8e6e1':'#8a8885'}">${r.en>0?'$'+r.en.toLocaleString():'—'}</td><td style="text-align:right;border-bottom:0.5px solid #2a2a2e;color:#b0aea9">$${r.sa.toLocaleString()}</td><td style="text-align:right;border-bottom:0.5px solid #2a2a2e;color:${s>=0?'#e8e6e1':'#f87171'}">${s>=0?'+':''}$${s.toLocaleString()}</td><td style="text-align:right;border-bottom:0.5px solid #2a2a2e;font-weight:500;color:${r.ac>=0?'#e8e6e1':'#f87171'}">$${r.ac.toLocaleString()}</td>`;
   tbody.appendChild(tr);
 });
 
@@ -454,9 +576,9 @@ if(ctx){
       datasets:[{
         label:'Acumulado ex-IVA',
         data:cfData.map(d=>d.ac),
-        borderColor:'#555',
+        borderColor:'#c8a96e',
         borderWidth:2,
-        pointBackgroundColor:cfData.map(d=>d.ac<0?'#c0392b':'#555'),
+        pointBackgroundColor:cfData.map(d=>d.ac<0?'#f87171':'#c8a96e'),
         pointRadius:4,
         tension:0.3,
         fill:false
@@ -465,10 +587,10 @@ if(ctx){
     options:{
       responsive:true,
       maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.parsed.y.toLocaleString()}}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.parsed.y.toLocaleString()},backgroundColor:'#17171a',borderColor:'#2a2a2e',borderWidth:1,titleColor:'#e8e6e1',bodyColor:'#b0aea9'}},
       scales:{
-        x:{grid:{display:false},ticks:{font:{size:11},color:'#888'}},
-        y:{grid:{color:'rgba(128,128,128,0.1)'},ticks:{font:{size:11},color:'#888',callback:v=>'$'+(v/1000).toFixed(0)+'k'}}
+        x:{grid:{display:false},ticks:{font:{size:11},color:'#8a8885'}},
+        y:{grid:{color:'rgba(42,42,46,0.8)'},ticks:{font:{size:11},color:'#8a8885',callback:v=>'$'+(v/1000).toFixed(0)+'k'}}
       }
     }
   });
@@ -492,3 +614,5 @@ function cp(id,btn){
   });
 }
 </script>
+</body>
+</html>
