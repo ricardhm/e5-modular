@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Outreach Playbook — E5 Modular</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0f0f11;
+      --surface:   #17171a;
+      --border:    #2a2a2e;
+      --border-hi: #3a3a3e;
+      --accent:    #c8a96e;
+      --text:      #e8e6e1;
+      --muted:     #8a8885;
+      --muted-hi:  #b0aea9;
+      --green:     #4ade80;
+      --yellow:    #fbbf24;
+      --red:       #f87171;
+      --blue:      #93c5fd;
+      --radius:    10px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 10;
+    }
+
+    .wordmark {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .logo-placeholder {
+      width: 34px;
+      height: 34px;
+      border-radius: 7px;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 13px;
+      color: #0f0f11;
+      flex-shrink: 0;
+    }
+
+    .brand-name { font-size: 15px; font-weight: 600; }
+    .brand-name span { color: var(--accent); }
+
+    .back-link {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .back-link:hover { color: var(--text); }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .toc-sidebar {
+      padding: 40px 24px 40px 0;
+      position: sticky;
+      top: 73px;
+      height: calc(100vh - 73px);
+      overflow-y: auto;
+      border-right: 1px solid var(--border);
+    }
+
+    .toc-title {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .toc-list { list-style: none; }
+    .toc-list li { margin-bottom: 4px; }
+    .toc-list a {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 3px 8px;
+      border-radius: 6px;
+      transition: all .15s;
+      line-height: 1.4;
+    }
+    .toc-list a:hover { color: var(--text); background: rgba(255,255,255,.04); }
+    .toc-list a.active { color: var(--accent); background: rgba(200,169,110,.08); }
+
+    .content {
+      padding: 48px 0 96px 48px;
+      min-width: 0;
+    }
+
+    /* ── Markdown styles ── */
+    .md h1 {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .md > h1 + h3 {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--muted);
+      margin-bottom: 40px;
+    }
+
+    .md h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 52px 0 20px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .md h2:first-of-type { margin-top: 0; border-top: none; padding-top: 0; }
+
+    .md h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent);
+      margin: 32px 0 12px;
+    }
+
+    .md h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted-hi);
+      margin: 24px 0 10px;
+    }
+
+    .md p {
+      font-size: 14px;
+      color: var(--muted-hi);
+      margin-bottom: 14px;
+    }
+
+    .md strong { color: var(--text); font-weight: 600; }
+    .md em { font-style: italic; }
+
+    .md a { color: var(--accent); text-decoration: none; }
+    .md a:hover { text-decoration: underline; }
+
+    .md blockquote {
+      border-left: 2px solid var(--accent);
+      margin: 16px 0;
+      padding: 12px 18px;
+      background: rgba(200,169,110,.06);
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+    .md blockquote p { margin: 0; font-size: 13.5px; color: var(--muted-hi); }
+
+    .md pre {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      overflow-x: auto;
+      margin: 16px 0;
+    }
+    .md pre code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--muted-hi);
+      background: none;
+      padding: 0;
+      border: none;
+      line-height: 1.7;
+    }
+    .md code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    .md ul, .md ol {
+      margin: 10px 0 14px 20px;
+      color: var(--muted-hi);
+    }
+    .md li { font-size: 14px; margin-bottom: 5px; line-height: 1.6; }
+
+    .md table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin: 16px 0 24px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: block;
+      overflow-x: auto;
+    }
+    .md thead th {
+      text-align: left;
+      padding: 8px 14px;
+      background: var(--surface);
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .md tbody td {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted-hi);
+      vertical-align: top;
+    }
+    .md tbody tr:last-child td { border-bottom: none; }
+    .md tbody tr:hover td { background: rgba(255,255,255,.02); }
+
+    .md hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+
+    .loading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 48px 0;
+    }
+    .loading-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+    .loading-dot:nth-child(2) { animation-delay: .2s; }
+    .loading-dot:nth-child(3) { animation-delay: .4s; }
+    @keyframes pulse {
+      0%, 100% { opacity: .3; transform: scale(.8); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    @media (max-width: 800px) {
+      .layout { grid-template-columns: 1fr; padding: 0 20px; }
+      .toc-sidebar { display: none; }
+      .content { padding: 32px 0 64px; }
+      .site-header { padding: 16px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="wordmark" href="../index.html">
+      <div class="logo-placeholder">E5</div>
+      <span class="brand-name">E5 <span>Modular</span></span>
+    </a>
+    <a class="back-link" href="../index.html">← Volver a proyectos</a>
+  </header>
+
+  <div class="layout">
+    <nav class="toc-sidebar">
+      <p class="toc-title">Contenido</p>
+      <ul class="toc-list" id="toc"></ul>
+    </nav>
+
+    <main class="content">
+      <div class="loading" id="loading">
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <span>Cargando documento…</span>
+      </div>
+      <article class="md" id="md"></article>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    async function load() {
+      try {
+        const res = await fetch('e5_outreach_playbook.md');
+        if (!res.ok) throw new Error('No se pudo cargar el archivo');
+        const text = await res.text();
+
+        const md = document.getElementById('md');
+        md.innerHTML = marked.parse(text);
+        document.getElementById('loading').style.display = 'none';
+
+        const toc = document.getElementById('toc');
+        md.querySelectorAll('h2').forEach((h, i) => {
+          const id = 'section-' + i;
+          h.id = id;
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = '#' + id;
+          a.textContent = h.textContent;
+          li.appendChild(a);
+          toc.appendChild(li);
+        });
+
+        const sections = md.querySelectorAll('h2');
+        const links = toc.querySelectorAll('a');
+
+        const obs = new IntersectionObserver(entries => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              links.forEach(l => l.classList.remove('active'));
+              const active = toc.querySelector(`a[href="#${e.target.id}"]`);
+              if (active) active.classList.add('active');
+            }
+          });
+        }, { rootMargin: '-20% 0px -75% 0px' });
+
+        sections.forEach(s => obs.observe(s));
+
+      } catch (err) {
+        document.getElementById('loading').innerHTML =
+          `<span style="color:var(--red)">Error al cargar el documento: ${err.message}</span>`;
+      }
+    }
+
+    load();
+  </script>
+</body>
+</html>
